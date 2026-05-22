@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -24,6 +25,7 @@
     --cisco:    #00bceb;
     --huawei:   #cf0a2c;
     --fortinet: #ee3124;
+    --mikrotik: #f5821f;
   }
 
   * { margin:0; padding:0; box-sizing:border-box; }
@@ -60,362 +62,255 @@
     backdrop-filter: blur(12px);
   }
 
-  .logo {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
+  .logo { display: flex; align-items: center; gap: 12px; }
 
   .logo-icon {
     width: 36px; height: 36px;
     background: linear-gradient(135deg, var(--accent2), var(--accent));
     border-radius: 8px;
     display: flex; align-items: center; justify-content: center;
-    font-size: 18px;
-    font-weight: 800;
-    color: white;
+    font-size: 18px; font-weight: 800; color: white;
     font-family: 'JetBrains Mono', monospace;
   }
 
-  .logo-text {
-    font-size: 16px;
-    font-weight: 800;
-    letter-spacing: -0.02em;
-    color: var(--text);
-  }
-
+  .logo-text { font-size: 16px; font-weight: 800; letter-spacing: -0.02em; color: var(--text); }
   .logo-text span { color: var(--accent); }
 
   .header-badge {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    padding: 4px 10px;
+    font-size: 11px; padding: 4px 10px;
     background: rgba(0,212,255,0.1);
     border: 1px solid rgba(0,212,255,0.3);
-    border-radius: 20px;
-    color: var(--accent);
-    letter-spacing: 0.05em;
+    border-radius: 20px; color: var(--accent); letter-spacing: 0.05em;
   }
 
   .app {
-    position: relative;
-    z-index: 1;
-    display: grid;
-    grid-template-columns: 260px 1fr;
+    position: relative; z-index: 1;
+    display: grid; grid-template-columns: 260px 1fr;
     min-height: calc(100vh - 64px);
   }
 
-  .sidebar {
-    border-right: 1px solid var(--border);
-    padding: 24px 0;
-    background: rgba(17,24,39,0.6);
-  }
-
-  .sidebar-section {
-    padding: 0 16px;
-    margin-bottom: 8px;
-  }
-
+  .sidebar { border-right: 1px solid var(--border); padding: 24px 0; background: rgba(17,24,39,0.6); }
+  .sidebar-section { padding: 0 16px; margin-bottom: 8px; }
   .sidebar-label {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.12em;
-    color: var(--text3);
-    padding: 0 8px;
-    margin-bottom: 6px;
-    text-transform: uppercase;
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    letter-spacing: 0.12em; color: var(--text3);
+    padding: 0 8px; margin-bottom: 6px; text-transform: uppercase;
   }
 
   .nav-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px 12px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.15s;
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--text2);
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 12px; border-radius: 8px; cursor: pointer;
+    transition: all 0.15s; font-size: 14px; font-weight: 600; color: var(--text2);
   }
-
   .nav-item:hover { background: var(--bg3); color: var(--text); }
-
-  .nav-item.active {
-    background: rgba(0,102,255,0.15);
-    color: var(--accent);
-    border: 1px solid rgba(0,102,255,0.3);
-  }
-
-  .nav-item .dot {
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: var(--text3);
-    flex-shrink: 0;
-  }
-
+  .nav-item.active { background: rgba(0,102,255,0.15); color: var(--accent); border: 1px solid rgba(0,102,255,0.3); }
+  .nav-item .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--text3); flex-shrink: 0; }
   .nav-item.active .dot { background: var(--accent); box-shadow: 0 0 8px var(--accent); }
   .nav-item.done .dot  { background: var(--success); }
+  .nav-num { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--text3); margin-left: auto; }
 
-  .nav-num {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    color: var(--text3);
-    margin-left: auto;
-  }
-
-  .main {
-    padding: 40px;
-    overflow-y: auto;
-    max-height: calc(100vh - 64px);
-  }
-
+  .main { padding: 40px; overflow-y: auto; max-height: calc(100vh - 64px); }
   .panel { display: none; }
   .panel.active { display: block; }
 
-  .panel-header {
-    margin-bottom: 32px;
-  }
-
-  .panel-title {
-    font-size: 28px;
-    font-weight: 800;
-    letter-spacing: -0.03em;
-    margin-bottom: 6px;
-  }
-
+  .panel-header { margin-bottom: 32px; }
+  .panel-title { font-size: 28px; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 6px; }
   .panel-title span { color: var(--accent); }
-
-  .panel-sub {
-    font-size: 14px;
-    color: var(--text2);
-    font-weight: 400;
-  }
+  .panel-sub { font-size: 14px; color: var(--text2); font-weight: 400; }
 
   .form-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 20px;
-    margin-bottom: 28px;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px; margin-bottom: 28px;
   }
-
-  .form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-
+  .form-group { display: flex; flex-direction: column; gap: 8px; }
   .form-group label {
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 0.06em;
-    color: var(--text2);
-    text-transform: uppercase;
-    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; font-weight: 700; letter-spacing: 0.06em;
+    color: var(--text2); text-transform: uppercase; font-family: 'JetBrains Mono', monospace;
   }
-
   .form-group input,
   .form-group select {
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 12px 16px;
-    color: var(--text);
-    font-size: 14px;
-    font-family: 'JetBrains Mono', monospace;
-    transition: border-color 0.2s;
-    outline: none;
+    background: var(--bg2); border: 1px solid var(--border); border-radius: 8px;
+    padding: 12px 16px; color: var(--text); font-size: 14px;
+    font-family: 'JetBrains Mono', monospace; transition: border-color 0.2s; outline: none;
   }
-
   .form-group input:focus,
-  .form-group select:focus {
-    border-color: var(--accent2);
-    box-shadow: 0 0 0 3px rgba(0,102,255,0.15);
-  }
+  .form-group select:focus { border-color: var(--accent2); box-shadow: 0 0 0 3px rgba(0,102,255,0.15); }
 
-  .services-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 12px;
-    margin-bottom: 28px;
-  }
-
-  .service-card {
-    background: var(--bg2);
-    border: 1px solid var(--border);
+  /* API Key box */
+  .apikey-box {
+    background: rgba(0,102,255,0.05);
+    border: 1px solid rgba(0,102,255,0.3);
     border-radius: 10px;
-    padding: 16px;
-    cursor: pointer;
-    transition: all 0.2s;
+    padding: 16px 20px;
+    margin-bottom: 24px;
     display: flex;
-    align-items: flex-start;
-    gap: 12px;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
   }
+  .apikey-box label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
+    color: var(--accent2); text-transform: uppercase; white-space: nowrap;
+  }
+  .apikey-box input {
+    flex: 1; min-width: 260px;
+    background: var(--bg2); border: 1px solid var(--border); border-radius: 6px;
+    padding: 8px 14px; color: var(--text); font-size: 13px;
+    font-family: 'JetBrains Mono', monospace; outline: none;
+  }
+  .apikey-box input:focus { border-color: var(--accent2); }
+  .apikey-status {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    padding: 4px 10px; border-radius: 20px;
+  }
+  .apikey-status.ok  { background: rgba(0,255,157,0.12); color: var(--success); border: 1px solid rgba(0,255,157,0.3); }
+  .apikey-status.err { background: rgba(255,71,87,0.12); color: var(--danger);  border: 1px solid rgba(255,71,87,0.3); }
 
+  .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-bottom: 28px; }
+  .service-card {
+    background: var(--bg2); border: 1px solid var(--border); border-radius: 10px;
+    padding: 16px; cursor: pointer; transition: all 0.2s;
+    display: flex; align-items: flex-start; gap: 12px;
+  }
   .service-card:hover { border-color: var(--accent2); background: var(--bg3); }
-
-  .service-card.selected {
-    border-color: var(--accent);
-    background: rgba(0,212,255,0.08);
-  }
+  .service-card.selected { border-color: var(--accent); background: rgba(0,212,255,0.08); }
 
   .btn {
-    padding: 12px 24px;
-    border-radius: 8px;
-    font-family: 'Syne', sans-serif;
-    font-size: 14px;
-    font-weight: 700;
-    cursor: pointer;
-    border: none;
-    transition: all 0.2s;
-    letter-spacing: 0.02em;
+    padding: 12px 24px; border-radius: 8px; font-family: 'Syne', sans-serif;
+    font-size: 14px; font-weight: 700; cursor: pointer; border: none;
+    transition: all 0.2s; letter-spacing: 0.02em;
   }
+  .btn:disabled { opacity: 0.45; cursor: not-allowed; }
+  .btn-primary { background: linear-gradient(135deg, var(--accent2), var(--accent)); color: white; }
+  .btn-primary:hover:not(:disabled) { opacity: 0.85; transform: translateY(-1px); }
+  .btn-secondary { background: var(--bg3); color: var(--text); border: 1px solid var(--border); }
+  .btn-success { background: rgba(0,255,157,0.15); color: var(--success); border: 1px solid rgba(0,255,157,0.3); }
+  .btn-ai { background: linear-gradient(135deg, #6c2bff, #0066ff); color: white; }
+  .btn-ai:hover:not(:disabled) { opacity: 0.85; transform: translateY(-1px); }
+  .btn-group { display: flex; gap: 12px; margin-top: 24px; flex-wrap: wrap; }
 
-  .btn-primary {
-    background: linear-gradient(135deg, var(--accent2), var(--accent));
-    color: white;
-  }
+  .result-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 32px; }
+  .result-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+  .rc-label { font-size: 11px; letter-spacing: 0.08em; color: var(--text3); font-family: 'JetBrains Mono', monospace; text-transform: uppercase; margin-bottom: 8px; }
+  .rc-value { font-size: 22px; font-weight: 800; color: var(--accent); }
 
-  .btn-primary:hover { opacity: 0.85; transform: translateY(-1px); }
+  .data-table { width: 100%; border-collapse: collapse; margin-bottom: 28px; font-size: 13px; }
+  .data-table th, .data-table td { padding: 12px 16px; text-align: left; border-bottom: 1px solid rgba(30,45,69,0.5); }
+  .data-table th { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.08em; color: var(--text3); text-transform: uppercase; }
 
-  .btn-secondary {
-    background: var(--bg3);
-    color: var(--text);
-    border: 1px solid var(--border);
-  }
-
-  .btn-success {
-    background: rgba(0,255,157,0.15);
-    color: var(--success);
-    border: 1px solid rgba(0,255,157,0.3);
-  }
-
-  .result-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 16px;
-    margin-bottom: 32px;
-  }
-
-  .result-card {
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 20px;
-  }
-
-  .data-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 28px;
-    font-size: 13px;
-  }
-
-  .data-table th, .data-table td {
-    padding: 12px 16px;
-    text-align: left;
-    border-bottom: 1px solid rgba(30,45,69,0.5);
-  }
-
-  .data-table th {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.08em;
-    color: var(--text3);
-    text-transform: uppercase;
-  }
-
-  .tag {
-    display: inline-block;
-    padding: 2px 8px;
-    border-radius: 4px;
-    font-size: 11px;
-    font-weight: 700;
-  }
-
+  .tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 700; }
   .tag-blue  { background: rgba(0,102,255,0.2);  color: #60a5fa; }
   .tag-green { background: rgba(0,255,157,0.15); color: var(--success); }
   .tag-warn  { background: rgba(255,107,53,0.2); color: var(--warn); }
   .tag-red   { background: rgba(255,71,87,0.2);  color: var(--danger); }
 
-  .code-block {
-    background: #080c14;
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    overflow: hidden;
-    margin-bottom: 20px;
-  }
-
+  .code-block { background: #080c14; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; margin-bottom: 20px; }
   .code-header {
-    padding: 10px 16px;
-    background: var(--bg3);
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    padding: 10px 16px; background: var(--bg3); border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+  }
+  .copy-btn {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; padding: 4px 10px;
+    background: rgba(0,212,255,0.1); border: 1px solid rgba(0,212,255,0.3);
+    border-radius: 4px; color: var(--accent); cursor: pointer;
+  }
+  .code-body {
+    padding: 16px; font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; line-height: 1.7; color: #a8d8f0;
+    white-space: pre; overflow-x: auto; max-height: 520px; overflow-y: auto;
   }
 
-  .copy-btn {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    padding: 4px 10px;
-    background: rgba(0,212,255,0.1);
-    border: 1px solid rgba(0,212,255,0.3);
-    border-radius: 4px;
-    color: var(--accent);
-    cursor: pointer;
+  /* Loading spinner */
+  .spinner-wrap { display: flex; align-items: center; gap: 14px; padding: 20px 0; }
+  .spinner {
+    width: 24px; height: 24px; border: 3px solid var(--border);
+    border-top-color: var(--accent); border-radius: 50%;
+    animation: spin 0.8s linear infinite;
   }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .spinner-text { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--text2); }
 
   .topology-container {
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 20px;
-    margin-bottom: 28px;
-    text-align: center;
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: 12px; padding: 20px; margin-bottom: 28px; text-align: center;
   }
+  .topo-svg { width: 100%; max-width: 700px; }
 
-  .alert {
-    padding: 14px 18px;
-    border-radius: 8px;
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
+  .alert { padding: 14px 18px; border-radius: 8px; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+  .alert-info    { background: rgba(0,102,255,0.1);   border: 1px solid rgba(0,102,255,0.3);  color: #93c5fd; }
+  .alert-success { background: rgba(0,255,157,0.08);  border: 1px solid rgba(0,255,157,0.25); color: var(--success); }
+  .alert-warn    { background: rgba(255,107,53,0.1);  border: 1px solid rgba(255,107,53,0.3); color: var(--warn); }
 
-  .alert-info {
-    background: rgba(0,102,255,0.1);
-    border: 1px solid rgba(0,102,255,0.3);
-    color: #93c5fd;
-  }
+  .progress-bar { height: 3px; background: var(--border); border-radius: 2px; margin-bottom: 32px; overflow: hidden; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--accent2), var(--accent)); border-radius: 2px; transition: width 0.4s ease; }
 
-  .alert-success {
-    background: rgba(0,255,157,0.08);
-    border: 1px solid rgba(0,255,157,0.25);
-    color: var(--success);
-  }
+  .section-title { font-size: 16px; font-weight: 700; color: var(--text2); margin-bottom: 16px; letter-spacing: 0.03em; }
 
-  .progress-bar {
-    height: 3px;
-    background: var(--border);
-    border-radius: 2px;
-    margin-bottom: 32px;
-    overflow: hidden;
+  .vendor-badge {
+    display: inline-block; padding: 3px 10px; border-radius: 4px;
+    font-size: 11px; font-weight: 700; font-family: 'JetBrains Mono', monospace;
+    text-transform: uppercase; letter-spacing: 0.08em;
   }
+  .vendor-cisco    { background: rgba(0,188,235,0.2);  color: var(--cisco);    border: 1px solid rgba(0,188,235,0.4); }
+  .vendor-huawei   { background: rgba(207,10,44,0.2);  color: #ff6080;         border: 1px solid rgba(207,10,44,0.4); }
+  .vendor-fortinet { background: rgba(238,49,36,0.2);  color: #ff7b6e;         border: 1px solid rgba(238,49,36,0.4); }
+  .vendor-mikrotik { background: rgba(245,130,31,0.2); color: var(--mikrotik); border: 1px solid rgba(245,130,31,0.4); }
 
-  .progress-fill {
-    height: 100%;
-    background: linear-gradient(90deg, var(--accent2), var(--accent));
-    border-radius: 2px;
-    transition: width 0.4s ease;
+  /* AI summary */
+  .ai-summary {
+    background: rgba(108,43,255,0.06);
+    border: 1px solid rgba(108,43,255,0.3);
+    border-radius: 10px;
+    padding: 20px 24px;
+    font-size: 14px;
+    line-height: 1.75;
+    color: var(--text);
+    white-space: pre-wrap;
+    margin-bottom: 24px;
   }
+  .ai-summary strong { color: var(--accent); }
+
+
+  /* CLI tabs por equipo */
+  .cli-tab {
+    padding: 8px 14px; border-radius: 7px; cursor: pointer;
+    border: 1px solid var(--border); background: var(--bg2);
+    color: var(--text2); font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; font-weight: 600; transition: all 0.15s;
+    white-space: nowrap;
+  }
+  .cli-tab:hover { border-color: var(--accent2); color: var(--text); }
+  .cli-tab.cli-tab-active { background: rgba(0,102,255,0.15); color: var(--accent); border-color: rgba(0,102,255,0.5); }
 
   @media (max-width: 900px) {
     .app { grid-template-columns: 1fr; }
     .sidebar { display: none; }
-    .main { padding: 20px; }
+    .main { padding: 20px; padding-bottom: 80px; }
   }
+  .mobile-nav {
+    display: none;
+    position: fixed; bottom: 0; left: 0; right: 0;
+    background: rgba(10,14,26,0.97);
+    border-top: 1px solid var(--border);
+    backdrop-filter: blur(12px);
+    z-index: 100; padding: 6px 4px;
+    overflow-x: auto; white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+  }
+  .mobile-nav-inner { display: inline-flex; gap: 2px; padding: 0 6px; }
+  .mobile-nav-btn {
+    display: inline-flex; flex-direction: column; align-items: center;
+    padding: 5px 9px; border-radius: 7px;
+    border: 1px solid transparent; background: transparent;
+    color: var(--text3); font-family: 'JetBrains Mono', monospace;
+    font-size: 8px; cursor: pointer; transition: all 0.15s; gap: 2px; min-width: 48px;
+  }
+  .mobile-nav-btn .mn-icon { font-size: 15px; line-height: 1; }
+  .mobile-nav-btn.active { background: rgba(0,102,255,0.15); color: var(--accent); border-color: rgba(0,102,255,0.3); }
+  .mobile-nav-btn.done { color: var(--success); }
+  @media (max-width: 900px) { .mobile-nav { display: block; } }
 </style>
 </head>
 <body>
@@ -425,14 +320,13 @@
     <div class="logo-icon">ID</div>
     <div class="logo-text">Infra<span>Designer</span> Pro 360°</div>
   </div>
-  <div style="display:flex; gap:12px;">
+  <div style="display:flex; gap:12px; align-items:center;">
     <div class="header-badge">AI Network Planning Tool</div>
-    <button class="btn btn-secondary" onclick="cargarUltimoProyecto()">📂 Cargar último proyecto</button>
+    <button class="btn btn-secondary" onclick="cargarUltimoProyecto()">📂 Cargar último</button>
   </div>
 </header>
 
 <div class="app">
-  <!-- Sidebar (mismo que antes) -->
   <nav class="sidebar">
     <div class="sidebar-section">
       <div class="sidebar-label">Módulos</div>
@@ -441,12 +335,12 @@
       <div class="nav-item" onclick="goTo(2)" id="nav2"><div class="dot"></div> IP Planning <span class="nav-num">03</span></div>
       <div class="nav-item" onclick="goTo(3)" id="nav3"><div class="dot"></div> Segmentación VLAN <span class="nav-num">04</span></div>
       <div class="nav-item" onclick="goTo(4)" id="nav4"><div class="dot"></div> Diseño de Infraestructura <span class="nav-num">05</span></div>
-      <div class="nav-item" onclick="goTo(5)" id="nav5"><div class="dot"></div> Comandos de Configuración <span class="nav-num">06</span></div>
+      <div class="nav-item" onclick="goTo(5)" id="nav5"><div class="dot"></div> Comandos CLI <span class="nav-num">06</span></div>
       <div class="nav-item" onclick="goTo(6)" id="nav6"><div class="dot"></div> Reporte Final <span class="nav-num">07</span></div>
+      <div class="nav-item" onclick="goTo(7)" id="nav7"><div class="dot"></div> Consola SSH/Telnet <span class="nav-num">08</span></div>
     </div>
   </nav>
 
-  <!-- Main Content -->
   <main class="main">
 
     <!-- Panel 0: Parámetros -->
@@ -456,6 +350,16 @@
         <div class="panel-sub">Ingresa los datos base de la red a diseñar</div>
       </div>
       <div class="progress-bar"><div class="progress-fill" style="width:14%"></div></div>
+
+      <!-- API KEY -->
+      <div class="apikey-box">
+        <label>🔑 Anthropic API Key</label>
+        <input type="password" id="apikey_input" placeholder="sk-ant-api03-..." oninput="guardarApiKey()" />
+        <span class="apikey-status" id="apikey_status">Sin configurar</span>
+        <span style="font-size:11px; color:var(--text3); font-family:'JetBrains Mono',monospace;">
+          Requerida para generación de comandos con IA. Se guarda solo en tu navegador.
+        </span>
+      </div>
 
       <div class="form-grid">
         <div class="form-group">
@@ -515,17 +419,33 @@
             <option value="cisco">Cisco</option>
             <option value="huawei">Huawei</option>
             <option value="fortinet">Fortinet</option>
+            <option value="mikrotik">MikroTik</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Routing</label>
+          <select id="p_routing">
+            <option value="ospf" selected>OSPF</option>
+            <option value="eigrp">EIGRP</option>
+            <option value="bgp">BGP</option>
+            <option value="static">Estático</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>WAN / Redundancia</label>
+          <select id="p_wan">
+            <option value="none" selected>Sin WAN redundante</option>
+            <option value="mpls">MPLS</option>
+            <option value="vpn">VPN IPSec</option>
+            <option value="sd-wan">SD-WAN</option>
           </select>
         </div>
       </div>
 
-      <div class="btn-group" style="display:flex; gap:12px;">
-        <button class="btn btn-primary" onclick="calcular()">Generar Diseño Completo →</button>
+      <div class="btn-group">
+        <button class="btn btn-primary" onclick="calcular()">⚡ Generar Diseño Completo →</button>
       </div>
     </div>
-
-    <!-- Los demás panels (1 al 6) se mantienen igual que en tu versión original -->
-    <!-- Por brevedad los omito aquí, pero están completos en la versión final que te entrego -->
 
     <!-- Panel 1: Servicios -->
     <div class="panel" id="panel1">
@@ -534,37 +454,258 @@
         <div class="panel-sub">Selecciona los servicios activos para calcular el ancho de banda</div>
       </div>
       <div class="progress-bar"><div class="progress-fill" style="width:28%"></div></div>
-
       <div class="services-grid" id="services-grid"></div>
-
       <div class="section-title">Ancho de Banda Calculado</div>
       <div class="result-grid" id="bw-results"></div>
-
       <div class="btn-group">
         <button class="btn btn-secondary" onclick="goTo(0)">← Atrás</button>
         <button class="btn btn-primary" onclick="goTo(2)">Siguiente →</button>
       </div>
     </div>
 
-    <!-- Panel 6: Reporte Final (ejemplo) -->
+    <!-- Panel 2: IP Planning -->
+    <div class="panel" id="panel2">
+      <div class="panel-header">
+        <div class="panel-title">Plan de <span>Direccionamiento IP</span></div>
+        <div class="panel-sub">Subredes calculadas automáticamente por rol de red</div>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" style="width:43%"></div></div>
+      <div id="ip-plan-content"></div>
+      <div class="btn-group">
+        <button class="btn btn-secondary" onclick="goTo(1)">← Atrás</button>
+        <button class="btn btn-primary" onclick="goTo(3)">Siguiente →</button>
+      </div>
+    </div>
+
+    <!-- Panel 3: VLAN -->
+    <div class="panel" id="panel3">
+      <div class="panel-header">
+        <div class="panel-title">Segmentación <span>VLAN</span></div>
+        <div class="panel-sub">VLANs generadas según usuarios, criticidad y servicios</div>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" style="width:57%"></div></div>
+      <div id="vlan-content"></div>
+      <div class="btn-group">
+        <button class="btn btn-secondary" onclick="goTo(2)">← Atrás</button>
+        <button class="btn btn-primary" onclick="goTo(4)">Siguiente →</button>
+      </div>
+    </div>
+
+    <!-- Panel 4: Infraestructura -->
+    <div class="panel" id="panel4">
+      <div class="panel-header">
+        <div class="panel-title">Diseño de <span>Infraestructura</span></div>
+        <div class="panel-sub">Topología y hardware recomendado</div>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" style="width:71%"></div></div>
+      <div id="infra-content"></div>
+      <div class="btn-group">
+        <button class="btn btn-secondary" onclick="goTo(3)">← Atrás</button>
+        <button class="btn btn-primary" onclick="goTo(5)">Siguiente →</button>
+      </div>
+    </div>
+
+    <!-- Panel 5: Comandos CLI -->
+    <div class="panel" id="panel5">
+      <div class="panel-header">
+        <div class="panel-title">Comandos de <span>Configuración</span></div>
+        <div class="panel-sub">Scripts CLI completos con secuencia de inicio listos para ejecutar</div>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" style="width:85%"></div></div>
+
+      <div class="alert alert-info" id="cli-ai-info">
+        💡 Comandos base ya generados. Usa <strong>Generar con IA</strong> para obtener una configuración extendida y completa desde Claude.
+      </div>
+
+      <div id="comandos-content"></div>
+
+      <div class="btn-group">
+        <button class="btn btn-secondary" onclick="goTo(4)">← Atrás</button>
+        <button class="btn btn-ai" id="btn-ai-cli" onclick="generarComandosIA()">🤖 Generar Comandos con IA</button>
+        <button class="btn btn-primary" onclick="goTo(6)">Siguiente →</button>
+      </div>
+    </div>
+
+    <!-- Panel 6: Reporte Final -->
     <div class="panel" id="panel6">
       <div class="panel-header">
         <div class="panel-title">Reporte <span>Final</span></div>
         <div class="panel-sub">Resumen completo del diseño de red</div>
       </div>
       <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
-
       <div id="report-content"></div>
 
-      <div class="btn-group">
+      <div class="btn-group" style="margin-top:16px;">
         <button class="btn btn-secondary" onclick="goTo(5)">← Atrás</button>
-        <button class="btn btn-success" onclick="exportarReporte()">⬇ Exportar Reporte TXT</button>
+        <button class="btn btn-ai" id="btn-ai-summary" onclick="generarResumenIA()">🤖 Resumen Ejecutivo IA</button>
+        <button class="btn btn-success" onclick="exportarReporte()">⬇ Exportar TXT</button>
         <button class="btn btn-primary" onclick="nuevoDiseno()">+ Nuevo Diseño</button>
+      </div>
+      <div id="ai-summary-content"></div>
+    </div>
+
+    <!-- Panel 7: Consola SSH/Telnet -->
+    <div class="panel" id="panel7">
+      <div class="panel-header">
+        <div class="panel-title">Consola <span>SSH / Telnet</span></div>
+        <div class="panel-sub">Conecta equipos de red y envía comandos de configuración directamente</div>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
+
+      <div class="alert alert-warn" style="margin-bottom:20px;">
+        ⚠ <strong>Nota:</strong> Los navegadores no permiten conexiones SSH/Telnet directas por seguridad. Esta consola
+        <strong>simula</strong> la sesión y genera los scripts listos para ejecutar en tu terminal real (PuTTY, SecureCRT, terminal Linux).
+        El botón <em>"Descargar Script"</em> crea un archivo ejecutable para automatización.
+      </div>
+
+      <!-- Formulario de conexión -->
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:24px;margin-bottom:24px;">
+        <div class="section-title">📡 Datos de Conexión</div>
+        <div class="form-grid" style="margin-bottom:16px;">
+          <div class="form-group">
+            <label>Hostname / Nombre del Equipo</label>
+            <input type="text" id="con_hostname" placeholder="Ej: SW-CORE-01" />
+          </div>
+          <div class="form-group">
+            <label>Dirección IP</label>
+            <input type="text" id="con_ip" placeholder="192.168.1.1" />
+          </div>
+          <div class="form-group">
+            <label>Puerto</label>
+            <input type="number" id="con_port" value="22" min="1" max="65535" />
+          </div>
+          <div class="form-group">
+            <label>Protocolo</label>
+            <select id="con_proto" onchange="actualizarPuerto()">
+              <option value="ssh">SSH (Recomendado)</option>
+              <option value="telnet">Telnet (Inseguro)</option>
+              <option value="console">Consola Serial</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Usuario</label>
+            <input type="text" id="con_user" placeholder="admin" value="admin" />
+          </div>
+          <div class="form-group">
+            <label>Contraseña</label>
+            <input type="password" id="con_pass" placeholder="••••••••" value="Admin@2024" />
+          </div>
+          <div class="form-group">
+            <label>Fabricante</label>
+            <select id="con_vendor">
+              <option value="cisco">Cisco IOS/IOS-XE</option>
+              <option value="huawei">Huawei VRP</option>
+              <option value="fortinet">Fortinet FortiOS</option>
+              <option value="mikrotik">MikroTik RouterOS</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Enable / Contraseña privilegiada</label>
+            <input type="password" id="con_enable" placeholder="Solo Cisco/Huawei" value="Admin@Enable2024" />
+          </div>
+        </div>
+        <div class="btn-group" style="margin-top:0;">
+          <button class="btn btn-primary" onclick="conectarDispositivo()">🔌 Conectar</button>
+          <button class="btn btn-secondary" onclick="desconectarDispositivo()" id="btn-disconnect" style="display:none;">⛔ Desconectar</button>
+          <button class="btn btn-success" onclick="cargarEquiposDelDiseño()">📋 Cargar equipos del diseño</button>
+        </div>
+      </div>
+
+      <!-- Estado de conexión -->
+      <div id="con-status-wrap" style="display:none;margin-bottom:20px;">
+        <div id="con-status-card" style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div id="con-led" style="width:12px;height:12px;border-radius:50%;background:var(--text3);flex-shrink:0;"></div>
+            <div>
+              <div id="con-device-name" style="font-weight:700;font-size:15px;"></div>
+              <div id="con-device-info" style="font-size:12px;color:var(--text2);font-family:'JetBrains Mono',monospace;"></div>
+            </div>
+          </div>
+          <div style="display:flex;gap:20px;">
+            <div><div style="font-size:10px;color:var(--text3);font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:0.08em;">Comandos enviados</div><div id="con-cmd-count" style="font-weight:800;font-size:20px;color:var(--accent);">0</div></div>
+            <div><div style="font-size:10px;color:var(--text3);font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:0.08em;">Conectado hace</div><div id="con-uptime" style="font-weight:800;font-size:20px;color:var(--accent3);">0s</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Equipos conectados (multi-dispositivo) -->
+      <div id="con-devices-list" style="margin-bottom:20px;"></div>
+
+      <!-- Terminal simulada -->
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:20px;">
+        <div style="padding:10px 16px;background:var(--bg3);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text2);">
+            🖥 Terminal — <span id="term-label">Sin conexión activa</span>
+          </span>
+          <div style="display:flex;gap:8px;">
+            <button class="copy-btn" onclick="limpiarTerminal()">🗑 Limpiar</button>
+            <button class="copy-btn" onclick="descargarLog()">⬇ Descargar log</button>
+          </div>
+        </div>
+        <div id="terminal-output" style="
+          background:#060a10;padding:16px;font-family:'JetBrains Mono',monospace;
+          font-size:12px;line-height:1.7;color:#a8d8f0;
+          height:300px;overflow-y:auto;white-space:pre-wrap;
+        ">Infra Designer Pro — Consola de Gestión de Red
+Versión 2.0 — Modo Simulación Segura
+═══════════════════════════════════════════════════
+Conecta un equipo y envía comandos de configuración.
+Los comandos se ejecutan en modo simulación y se registran aquí.
+Para despliegue real: descarga el script y ejecútalo en tu terminal SSH.
+</div>
+        <!-- Input de comando -->
+        <div style="padding:8px 16px;border-top:1px solid var(--border);display:flex;align-items:center;gap:8px;background:#060a10;">
+          <span id="term-prompt" style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--accent3);white-space:nowrap;">➜ ~</span>
+          <input type="text" id="term-input" placeholder="Escribe un comando o pega un bloque..." style="
+            flex:1;background:transparent;border:none;outline:none;
+            font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text);
+          " onkeydown="termKeydown(event)" />
+          <button class="copy-btn" onclick="enviarComandoManual()">▶ Enviar</button>
+        </div>
+      </div>
+
+      <!-- Panel de envío masivo -->
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:20px;">
+        <div class="section-title">📤 Envío Masivo de Comandos</div>
+        <div style="margin-bottom:12px;">
+          <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;">
+            <button class="btn btn-secondary" style="font-size:12px;padding:8px 14px;" onclick="cargarComandosDelDiseño()">📥 Cargar comandos del diseño actual</button>
+            <button class="btn btn-secondary" style="font-size:12px;padding:8px 14px;" onclick="cargarComandosIA()">🤖 Cargar comandos IA (si fueron generados)</button>
+            <button class="btn btn-secondary" style="font-size:12px;padding:8px 14px;" onclick="limpiarBulk()">🗑 Limpiar</button>
+          </div>
+          <textarea id="bulk-commands" placeholder="Pega aquí los comandos a enviar (uno por línea)..." style="
+            width:100%;height:180px;background:#060a10;border:1px solid var(--border);border-radius:8px;
+            padding:12px;font-family:'JetBrains Mono',monospace;font-size:12px;color:#a8d8f0;
+            resize:vertical;outline:none;line-height:1.6;
+          "></textarea>
+        </div>
+        <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+          <button class="btn btn-primary" id="btn-send-bulk" onclick="enviarComandosMasivos()">▶ Enviar todos los comandos</button>
+          <button class="btn btn-success" onclick="descargarScript()">⬇ Descargar Script (.sh / .txt)</button>
+          <span id="bulk-counter" style="font-size:12px;color:var(--text2);font-family:'JetBrains Mono',monospace;"></span>
+        </div>
+      </div>
+
+      <div class="btn-group">
+        <button class="btn btn-secondary" onclick="goTo(6)">← Reporte Final</button>
       </div>
     </div>
 
   </main>
 </div>
+
+<nav class="mobile-nav" id="mobile-nav">
+  <div class="mobile-nav-inner">
+    <button class="mobile-nav-btn active" id="mnav0" onclick="goTo(0)"><span class="mn-icon">⚙️</span>Params</button>
+    <button class="mobile-nav-btn" id="mnav1" onclick="goTo(1)"><span class="mn-icon">🌐</span>Servicios</button>
+    <button class="mobile-nav-btn" id="mnav2" onclick="goTo(2)"><span class="mn-icon">🗺</span>IP Plan</button>
+    <button class="mobile-nav-btn" id="mnav3" onclick="goTo(3)"><span class="mn-icon">🔀</span>VLANs</button>
+    <button class="mobile-nav-btn" id="mnav4" onclick="goTo(4)"><span class="mn-icon">🏗</span>Infra</button>
+    <button class="mobile-nav-btn" id="mnav5" onclick="goTo(5)"><span class="mn-icon">💻</span>CLI</button>
+    <button class="mobile-nav-btn" id="mnav6" onclick="goTo(6)"><span class="mn-icon">📄</span>Reporte</button>
+    <button class="mobile-nav-btn" id="mnav7" onclick="goTo(7)"><span class="mn-icon">🖥</span>Consola</button>
+  </div>
+</nav>
 
 <script>
 // ====================== ESTADO GLOBAL ======================
@@ -572,6 +713,7 @@ const state = {
   nombre: '', org: '', red: '192.168.0.0', cidr: 22,
   wired: 50, wifi: 80, vms: 10, area: 1500,
   criticidad: 'media', vendor: 'cisco',
+  routing: 'ospf', wan: 'none',
   servicios: {},
   vlans: [], ipPlan: [], hardware: [],
   bwTotal: 0, enlace: '',
@@ -588,18 +730,83 @@ const SERVICIOS_DEF = [
   { id:'db',     nombre:'Bases de Datos',           bw:60,  desc:'60 Mbps' },
   { id:'vpn',    nombre:'VPN Remota',               bw:80,  desc:'80 Mbps' },
 ];
-
 SERVICIOS_DEF.forEach(s => state.servicios[s.id] = false);
 
-// ====================== NAVEGACIÓN ======================
 let currentPanel = 0;
 
+// ====================== API KEY ======================
+function getApiKey() {
+  return localStorage.getItem('infra_apikey') || '';
+}
+function guardarApiKey() {
+  const val = document.getElementById('apikey_input').value.trim();
+  localStorage.setItem('infra_apikey', val);
+  const st = document.getElementById('apikey_status');
+  if (val.startsWith('sk-ant-')) {
+    st.textContent = '✓ Configurada'; st.className = 'apikey-status ok';
+  } else if (val.length > 0) {
+    st.textContent = '⚠ Formato inválido'; st.className = 'apikey-status err';
+  } else {
+    st.textContent = 'Sin configurar'; st.className = 'apikey-status';
+  }
+}
+function initApiKeyUI() {
+  const saved = getApiKey();
+  if (saved) {
+    document.getElementById('apikey_input').value = saved;
+    guardarApiKey();
+    if (!document.getElementById('apikey-priv')) {
+      var box = document.getElementById('apikey_input').closest('.apikey-box');
+      if (box) {
+        var note = document.createElement('div');
+        note.id = 'apikey-priv';
+        note.style.cssText = 'width:100%;font-size:10px;color:#ff6b35;font-family:JetBrains Mono,monospace;margin-top:4px;';
+        note.textContent = '\u26a0 API Key guardada en localStorage. Evita usar en equipos compartidos.';
+        box.appendChild(note);
+      }
+    }
+  }
+}
+
+// ====================== LLAMADA A ANTHROPIC API ======================
+async function llamarClaude(prompt, maxTokens = 2500) {
+  const key = getApiKey();
+  if (!key) throw new Error('API Key no configurada. Ingresa tu clave Anthropic en el panel de Parámetros.');
+
+  const resp = await fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-api-key': key,
+      'anthropic-version': '2023-06-01',
+      'anthropic-dangerous-direct-browser-access': 'true'
+    },
+    body: JSON.stringify({
+      model: 'claude-sonnet-4-20250514',
+      max_tokens: maxTokens,
+      messages: [{ role: 'user', content: prompt }]
+    })
+  });
+
+  if (!resp.ok) {
+    const err = await resp.json().catch(() => ({}));
+    throw new Error(err.error?.message || `HTTP ${resp.status}`);
+  }
+  const data = await resp.json();
+  return data.content?.[0]?.text || '';
+}
+
+// ====================== NAVEGACIÓN ======================
 function goTo(n) {
   document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
+  document.querySelectorAll('.mobile-nav-btn').forEach(b => b.classList.remove('active'));
   currentPanel = n;
   document.getElementById('panel' + n).classList.add('active');
   document.getElementById('nav' + n).classList.add('active');
+  var mn = document.getElementById('mnav' + n);
+  if (mn) { mn.classList.add('active'); mn.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'}); }
+  window.scrollTo({top:0, behavior:'smooth'});
 }
 
 // ====================== VALIDACIÓN ======================
@@ -610,78 +817,1584 @@ function validarInputs() {
     return false;
   }
   const cidr = parseInt(document.getElementById('p_cidr').value);
-  if (cidr < 16 || cidr > 30) {
-    alert("❌ El prefijo CIDR debe estar entre /16 y /30");
-    return false;
-  }
+  if (cidr < 16 || cidr > 30) { alert("❌ El prefijo CIDR debe estar entre /16 y /30"); return false; }
   return true;
 }
 
-// ====================== CÁLCULO MEJORADO ======================
+// ====================== CÁLCULO DE ANCHO DE BANDA ======================
 function calcBW() {
   let base = 0;
-  SERVICIOS_DEF.forEach(s => {
-    if (state.servicios[s.id]) base += s.bw;
-  });
-
+  SERVICIOS_DEF.forEach(s => { if (state.servicios[s.id]) base += s.bw; });
   const usuariosTotal = state.wired + state.wifi;
   const concurrency = usuariosTotal > 200 ? 0.35 : usuariosTotal > 100 ? 0.45 : 0.60;
   const overhead = 1.35;
-
   const total = Math.round(base * concurrency * overhead);
   state.bwTotal = total;
-
-  state.enlace = total <= 50 ? '50 Mbps' : 
-                 total <= 100 ? '100 Mbps' :
-                 total <= 300 ? '300 Mbps' :
-                 total <= 500 ? '500 Mbps' :
-                 total <= 1000 ? '1 Gbps' : '10 Gbps';
-
-  // Actualizar resultados en panel 1
+  state.enlace = total <= 50 ? '50 Mbps' : total <= 100 ? '100 Mbps' : total <= 300 ? '300 Mbps' :
+                 total <= 500 ? '500 Mbps' : total <= 1000 ? '1 Gbps' : '10 Gbps';
   document.getElementById('bw-results').innerHTML = `
-    <div class="result-card">
-      <div class="rc-label">Ancho de Banda Bruto</div>
-      <div class="rc-value">${Math.round(total/1.35)} Mbps</div>
+    <div class="result-card"><div class="rc-label">Ancho de Banda Bruto</div><div class="rc-value">${Math.round(total/1.35)} Mbps</div></div>
+    <div class="result-card"><div class="rc-label">Con Overhead + Concurrencia</div><div class="rc-value">${total} Mbps</div></div>
+    <div class="result-card"><div class="rc-label">Enlace Recomendado</div><div class="rc-value">${state.enlace}</div></div>`;
+}
+
+// ====================== GENERAR VLANs ======================
+function generarVLANs() {
+  const u = state.wired + state.wifi;
+  const vlans = [
+    { id:10,  nombre:'Gestión',    color:'tag-blue',  hosts:30,                    descripcion:'Administración de equipos' },
+    { id:20,  nombre:'Usuarios',   color:'tag-green', hosts:Math.ceil(u*0.6),      descripcion:'Usuarios cableados principales' },
+    { id:30,  nombre:'Wi-Fi',      color:'tag-green', hosts:state.wifi,            descripcion:'Usuarios inalámbricos' },
+    { id:40,  nombre:'Servidores', color:'tag-warn',  hosts:state.vms,             descripcion:'Servidores y VMs' },
+    { id:50,  nombre:'VoIP',       color:'tag-blue',  hosts:Math.ceil(u*0.4),      descripcion:'Teléfonos IP' },
+    { id:60,  nombre:'Seguridad',  color:'tag-red',   hosts:20,                    descripcion:'Cámaras y sistemas físicos' },
+    { id:70,  nombre:'Invitados',  color:'tag-warn',  hosts:Math.ceil(state.wifi*0.3), descripcion:'Red aislada visitantes' },
+    { id:99,  nombre:'Nativa',     color:'tag-blue',  hosts:2,                     descripcion:'VLAN nativa enlaces trunk' },
+  ];
+  if (state.servicios['iot']) vlans.push({ id:80, nombre:'IoT', color:'tag-warn', hosts:50, descripcion:'Dispositivos IoT aislados' });
+  const p = state.red.split('.').map(Number);
+  vlans.forEach((v,i) => { v.red=`${p[0]}.${p[1]}.${i+1}.0`; v.gw=`${p[0]}.${p[1]}.${i+1}.1`; v.mask='255.255.255.0'; v.cidr=24; });
+  state.vlans = vlans;
+}
+
+// ====================== GENERAR IP PLAN ======================
+function generarIPPlan() {
+  const p = state.red.split('.').map(Number);
+  state.ipPlan = [
+    { segmento:'Core / Routing',      red:`${p[0]}.${p[1]}.0.0/30`,  gw:`${p[0]}.${p[1]}.0.1`,  uso:'Links punto a punto' },
+    { segmento:'DMZ',                 red:`${p[0]}.${p[1]}.0.4/29`,  gw:`${p[0]}.${p[1]}.0.5`,  uso:'Servicios públicos' },
+    { segmento:'Management',          red:`${p[0]}.${p[1]}.0.16/28`, gw:`${p[0]}.${p[1]}.0.17`, uso:'OOB Mgmt equipos' },
+    { segmento:'Servidores Internos', red:`${p[0]}.${p[1]}.1.0/24`,  gw:`${p[0]}.${p[1]}.1.1`,  uso:'VMs y servidores' },
+    { segmento:'Usuarios Cableados',  red:`${p[0]}.${p[1]}.2.0/23`,  gw:`${p[0]}.${p[1]}.2.1`,  uso:'PC de escritorio' },
+    { segmento:'Wi-Fi Corporativo',   red:`${p[0]}.${p[1]}.4.0/23`,  gw:`${p[0]}.${p[1]}.4.1`,  uso:'Laptops y móviles' },
+    { segmento:'Wi-Fi Invitados',     red:`${p[0]}.${p[1]}.6.0/24`,  gw:`${p[0]}.${p[1]}.6.1`,  uso:'Red aislada' },
+    { segmento:'VoIP',                red:`${p[0]}.${p[1]}.7.0/24`,  gw:`${p[0]}.${p[1]}.7.1`,  uso:'Teléfonos IP' },
+    { segmento:'Seguridad Física',    red:`${p[0]}.${p[1]}.8.0/25`,  gw:`${p[0]}.${p[1]}.8.1`,  uso:'Cámaras IP, NVR' },
+  ];
+}
+
+// ====================== GENERAR HARDWARE ======================
+function generarHardware() {
+  const u = state.wired + state.wifi;
+  const v = state.vendor;
+  const modelos = {
+    cisco:    { fw:'Cisco ASA 5516-X', core:'Cisco C9300-48P', acc:'Cisco C9200-24P', ap:'Cisco C9130AX', wlc:'Cisco C9800-L' },
+    huawei:   { fw:'Huawei USG6530E',  core:'Huawei S5731-H48', acc:'Huawei S5735-L24', ap:'Huawei AirEngine 6761', wlc:'Huawei AC6508' },
+    fortinet: { fw:'FortiGate 200F',   core:'FortiSwitch 448E', acc:'FortiSwitch 224E', ap:'FortiAP 431G', wlc:'FortiLAN Cloud' },
+    mikrotik: { fw:'MikroTik CCR2004', core:'MikroTik CRS354',  acc:'MikroTik CRS328',  ap:'MikroTik cAP ax', wlc:'MikroTik CAPsMAN' },
+  };
+  const m = modelos[v] || modelos.cisco;
+  const apCount = Math.ceil(state.area/150);
+  const accCount = Math.ceil(u/48)+1;
+  state.hardware = [
+    { rol:'Firewall / Router Perimetral', modelo:m.fw, cantidad:1, rack:'U1-U2', redundancia:'Activo-Pasivo' },
+    { rol:'Switch Core (Capa 3)',         modelo:m.core, cantidad:2, rack:'U3-U6', redundancia:'VSS/IRF/Stack' },
+    { rol:'Switch de Acceso (Capa 2)',    modelo:m.acc, cantidad:accCount, rack:'Closets', redundancia:'Uplinks redundantes' },
+    { rol:'Punto de Acceso Wi-Fi',        modelo:m.ap, cantidad:apCount, rack:'Techo/Pared', redundancia:'N/A' },
+    { rol:'Controladora Wi-Fi',           modelo:m.wlc, cantidad:1, rack:'U7', redundancia:'HA incluida' },
+  ];
+}
+
+// ====================== RENDER SERVICIOS ======================
+function renderServicios() {
+  const grid = document.getElementById('services-grid');
+  if (!grid) return;
+  grid.innerHTML = SERVICIOS_DEF.map(s => `
+    <div class="service-card ${state.servicios[s.id]?'selected':''}" onclick="toggleServicio('${s.id}')">
+      <div><div style="font-weight:700;font-size:14px;margin-bottom:4px;">${s.nombre}</div>
+      <div style="font-size:12px;color:var(--text2);">${s.desc}</div></div>
+    </div>`).join('');
+  calcBW();
+}
+function toggleServicio(id) { state.servicios[id]=!state.servicios[id]; renderServicios(); }
+
+// ====================== RENDER IP PLAN ======================
+function renderIPPlan() {
+  const el = document.getElementById('ip-plan-content');
+  if (!el) return;
+  if (!state.ipPlan.length) { el.innerHTML='<div class="alert alert-info">⚠ Genera el diseño primero.</div>'; return; }
+  el.innerHTML=`<table class="data-table">
+    <thead><tr><th>Segmento</th><th>Red / CIDR</th><th>Gateway</th><th>Uso</th></tr></thead>
+    <tbody>${state.ipPlan.map(r=>`<tr>
+      <td>${r.segmento}</td>
+      <td><code style="color:var(--accent);font-family:'JetBrains Mono',monospace;">${r.red}</code></td>
+      <td><code style="color:var(--accent3);font-family:'JetBrains Mono',monospace;">${r.gw}</code></td>
+      <td style="color:var(--text2);">${r.uso}</td></tr>`).join('')}
+    </tbody></table>`;
+}
+
+// ====================== RENDER VLAN ======================
+function renderVLAN() {
+  const el = document.getElementById('vlan-content');
+  if (!el) return;
+  if (!state.vlans.length) { el.innerHTML='<div class="alert alert-info">⚠ Genera el diseño primero.</div>'; return; }
+  el.innerHTML=`<table class="data-table">
+    <thead><tr><th>VLAN ID</th><th>Nombre</th><th>Red</th><th>Gateway</th><th>Hosts</th><th>Descripción</th></tr></thead>
+    <tbody>${state.vlans.map(v=>`<tr>
+      <td><span class="tag ${v.color}">${v.id}</span></td>
+      <td style="font-weight:700;">${v.nombre}</td>
+      <td><code style="color:var(--accent);font-family:'JetBrains Mono',monospace;">${v.red}/${v.cidr}</code></td>
+      <td><code style="color:var(--accent3);font-family:'JetBrains Mono',monospace;">${v.gw}</code></td>
+      <td>${v.hosts}</td>
+      <td style="color:var(--text2);">${v.descripcion}</td></tr>`).join('')}
+    </tbody></table>`;
+}
+
+// ====================== RENDER INFRAESTRUCTURA ======================
+function renderInfra() {
+  const el = document.getElementById('infra-content');
+  if (!el) return;
+  if (!state.hardware.length) { el.innerHTML='<div class="alert alert-info">⚠ Genera el diseño primero.</div>'; return; }
+  const vcls={cisco:'vendor-cisco',huawei:'vendor-huawei',fortinet:'vendor-fortinet',mikrotik:'vendor-mikrotik'};
+  const vcl=vcls[state.vendor]||'vendor-cisco';
+  el.innerHTML=`
+    <div class="alert alert-info" style="margin-bottom:20px;">
+      ℹ Fabricante: <span class="vendor-badge ${vcl}">${state.vendor.toUpperCase()}</span>
+      &nbsp;| Routing: <strong>${state.routing.toUpperCase()}</strong>
+      &nbsp;| WAN: <strong>${state.wan==='none'?'Sin redundancia':state.wan.toUpperCase()}</strong>
     </div>
-    <div class="result-card">
-      <div class="rc-label">Con Overhead + Concurrencia</div>
-      <div class="rc-value">${total} Mbps</div>
+    <div class="topology-container" id="topo-container"></div>
+    <div class="section-title">Hardware Recomendado</div>
+    <table class="data-table">
+      <thead><tr><th>Rol</th><th>Modelo</th><th>Cant.</th><th>Rack</th><th>Redundancia</th></tr></thead>
+      <tbody>${state.hardware.map(h=>`<tr>
+        <td style="font-weight:700;">${h.rol}</td>
+        <td><code style="color:var(--accent);font-family:'JetBrains Mono',monospace;">${h.modelo}</code></td>
+        <td style="text-align:center;">${h.cantidad}</td>
+        <td style="color:var(--text2);">${h.rack}</td>
+        <td><span class="tag tag-green">${h.redundancia}</span></td></tr>`).join('')}
+      </tbody>
+    </table>`;
+  renderTopologySVG();
+}
+
+// ====================== TOPOLOGIA SVG DINAMICA ======================
+function renderTopologySVG() {
+  var v = state.vendor;
+  var vc = {
+    cisco:    {fw:'#00bceb',core:'#00bceb',acc:'#60a5fa'},
+    huawei:   {fw:'#cf0a2c',core:'#ff6080',acc:'#fca5a5'},
+    fortinet: {fw:'#ee3124',core:'#ff7b6e',acc:'#fca5a5'},
+    mikrotik: {fw:'#f5821f',core:'#fdba74',acc:'#fed7aa'}
+  };
+  var c = vc[v] || vc.cisco;
+  var hw = state.hardware;
+  var fwM = hw[0] ? hw[0].modelo : 'FIREWALL';
+  var coreM = hw[1] ? hw[1].modelo : 'SWITCH CORE L3';
+  var accM = hw[2] ? hw[2].modelo : 'SW ACCESO';
+  var apM = hw[3] ? hw[3].modelo : 'AP Wi-Fi';
+  var accN = hw[2] ? hw[2].cantidad : 3;
+  var apN = hw[3] ? hw[3].cantidad : 1;
+  var wanL = state.wan !== 'none' ? state.wan.toUpperCase()+' / WAN' : 'INTERNET / WAN';
+  var rColor = {ospf:'#00ff9d',bgp:'#a78bfa',eigrp:'#f59e0b',static:'#7a8ba0'}[state.routing] || '#00ff9d';
+  var container = document.getElementById('topo-container');
+  if (!container) return;
+  var short = function(s,n){return s && s.length>n ? s.substring(0,n)+'...' : (s||'');};
+  var acc3 = accN >= 3;
+  container.innerHTML =
+    '<div style="font-family:JetBrains Mono,monospace;font-size:11px;color:var(--text3);margin-bottom:10px;text-align:left;">'+
+    'Topologia — <span style="color:'+c.fw+'">'+v.toUpperCase()+'</span> | '+
+    'Routing: <span style="color:'+rColor+'">'+state.routing.toUpperCase()+'</span> | '+
+    '<span style="color:var(--text2)">'+wanL+'</span></div>'+
+    '<svg class="topo-svg" viewBox="0 0 700 340" xmlns="http://www.w3.org/2000/svg">'+
+    // WAN
+    '<rect x="250" y="8" width="200" height="36" rx="18" fill="#0a0e1a" stroke="#1e2d45" stroke-width="1.5" stroke-dasharray="5 3"/>'+
+    '<text x="350" y="30" text-anchor="middle" fill="#4a5568" font-size="11" font-family="JetBrains Mono,monospace">'+wanL+'</text>'+
+    // WAN line
+    '<line x1="350" y1="44" x2="350" y2="80" stroke="'+c.fw+'" stroke-width="1.5" stroke-dasharray="5 3" opacity="0.6"/>'+
+    // Firewall
+    '<rect x="220" y="80" width="260" height="40" rx="8" fill="#060c1a" stroke="'+c.fw+'" stroke-width="2"/>'+
+    '<text x="350" y="97" text-anchor="middle" fill="'+c.fw+'" font-size="10" font-family="JetBrains Mono,monospace" font-weight="700">FIREWALL</text>'+
+    '<text x="350" y="112" text-anchor="middle" fill="'+c.fw+'" font-size="9" font-family="JetBrains Mono,monospace">'+short(fwM,28)+'</text>'+
+    // Core line
+    '<line x1="350" y1="120" x2="350" y2="155" stroke="'+rColor+'" stroke-width="2.5"/>'+
+    // Core switch
+    '<rect x="185" y="155" width="330" height="40" rx="8" fill="#060c1a" stroke="'+rColor+'" stroke-width="2"/>'+
+    '<text x="350" y="172" text-anchor="middle" fill="'+rColor+'" font-size="10" font-family="JetBrains Mono,monospace" font-weight="700">SWITCH CORE L3</text>'+
+    '<text x="350" y="187" text-anchor="middle" fill="'+rColor+'" font-size="9" font-family="JetBrains Mono,monospace">'+short(coreM,30)+'</text>'+
+    // Access lines
+    '<line x1="240" y1="175" x2="100" y2="232" stroke="'+c.acc+'" stroke-width="1.5"/>'+
+    '<line x1="350" y1="195" x2="350" y2="232" stroke="'+c.acc+'" stroke-width="1.5"/>'+
+    (acc3 ? '<line x1="460" y1="175" x2="600" y2="232" stroke="'+c.acc+'" stroke-width="1.5"/>' : '')+
+    // Access switches
+    '<rect x="20" y="232" width="160" height="36" rx="6" fill="#111827" stroke="'+c.acc+'" stroke-width="1.5"/>'+
+    '<text x="100" y="250" text-anchor="middle" fill="'+c.acc+'" font-size="9" font-family="JetBrains Mono,monospace">'+short(accM,18)+'</text>'+
+    '<text x="100" y="261" text-anchor="middle" fill="#4a5568" font-size="8" font-family="JetBrains Mono,monospace">x1</text>'+
+    '<rect x="270" y="232" width="160" height="36" rx="6" fill="#111827" stroke="'+c.acc+'" stroke-width="1.5"/>'+
+    '<text x="350" y="250" text-anchor="middle" fill="'+c.acc+'" font-size="9" font-family="JetBrains Mono,monospace">'+short(accM,18)+'</text>'+
+    '<text x="350" y="261" text-anchor="middle" fill="#4a5568" font-size="8" font-family="JetBrains Mono,monospace">x1</text>'+
+    (acc3 ?
+      '<rect x="520" y="232" width="160" height="36" rx="6" fill="#111827" stroke="'+c.acc+'" stroke-width="1.5"/>'+
+      '<text x="600" y="250" text-anchor="middle" fill="'+c.acc+'" font-size="9" font-family="JetBrains Mono,monospace">'+short(accM,18)+'</text>'+
+      '<text x="600" y="261" text-anchor="middle" fill="#4a5568" font-size="8" font-family="JetBrains Mono,monospace">x'+Math.max(accN-2,1)+'</text>'
+      : '')+
+    // AP link
+    '<line x1="350" y1="268" x2="350" y2="298" stroke="#ff6b35" stroke-width="1.5" stroke-dasharray="3 2"/>'+
+    '<ellipse cx="350" cy="314" rx="70" ry="18" fill="#120a00" stroke="#ff6b35" stroke-width="1.2"/>'+
+    '<text x="350" y="312" text-anchor="middle" fill="#ff6b35" font-size="9" font-family="JetBrains Mono,monospace">'+short(apM,20)+' x'+apN+'</text>'+
+    '</svg>';
+}
+
+// ====================== COMANDOS CLI CON INICIO ======================
+function getComandosBase(vendor) {
+  const vlanBlock = state.vlans.slice(0, 5);
+  const hostname = state.nombre.replace(/\s+/g, '-');
+  const domain = (state.org || 'empresa').replace(/\s+/g, '').toLowerCase() + '.local';
+
+  if (vendor === 'cisco') {
+    return `! ============================================================
+! CISCO IOS/IOS-XE — ${state.nombre}
+! Fabricante: Cisco | Routing: ${state.routing.toUpperCase()}
+! ============================================================
+!
+! ─── SECUENCIA DE INICIO ─────────────────────────────────
+enable
+configure terminal
+!
+! ─── CONFIGURACIÓN BASE ──────────────────────────────────
+hostname ${hostname}
+ip domain-name ${domain}
+ip ssh version 2
+crypto key generate rsa modulus 2048
+username admin privilege 15 secret Admin@2024
+enable secret Admin@Enable2024
+aaa new-model
+aaa authentication login default local
+aaa authorization exec default local
+service password-encryption
+no ip http server
+no ip http secure-server
+banner motd ^
+  *** Acceso Autorizado Únicamente — ${state.nombre} ***
+^
+!
+! ─── VLANs ───────────────────────────────────────────────
+${vlanBlock.map(v => `vlan ${v.id}\n name ${v.nombre.replace(/\s+/g,'-')}`).join('\n')}
+!
+! ─── INTERFACES SVI (GATEWAYS) ────────────────────────────
+${vlanBlock.map(v => `interface Vlan${v.id}\n description Gateway-VLAN${v.id}-${v.nombre}\n ip address ${v.gw} ${v.mask}\n no shutdown`).join('\n')}
+!
+! ─── ROUTING ${state.routing.toUpperCase()} ──────────────────────────────────
+router ospf 1
+ router-id 1.1.1.1
+ auto-cost reference-bandwidth 10000
+ passive-interface default
+${vlanBlock.map(v => ` network ${v.red} 0.0.0.255 area 0`).join('\n')}
+!
+! ─── PORT SECURITY / HARDENING ACCESO ─────────────────────
+interface range GigabitEthernet0/1 - 24
+ switchport mode access
+ switchport port-security maximum 2
+ switchport port-security violation restrict
+ switchport port-security
+ ip dhcp snooping limit rate 15
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+ storm-control broadcast level 20
+ storm-control action shutdown
+!
+! ─── DHCP SNOOPING / DAI ──────────────────────────────────
+ip dhcp snooping
+${vlanBlock.map(v => `ip dhcp snooping vlan ${v.id}`).join('\n')}
+no ip dhcp snooping information option
+ip arp inspection vlan ${vlanBlock.map(v=>v.id).join(',')}
+!
+! ─── GUARDAR CONFIGURACIÓN ───────────────────────────────
+end
+write memory`;
+  }
+
+  if (vendor === 'huawei') {
+    return `# ============================================================
+# HUAWEI VRP — ${state.nombre}
+# Fabricante: Huawei | Routing: ${state.routing.toUpperCase()}
+# ============================================================
+#
+# ─── SECUENCIA DE INICIO ─────────────────────────────────
+<Huawei> system-view
+[Huawei]
+#
+# ─── CONFIGURACIÓN BASE ──────────────────────────────────
+sysname ${hostname}
+undo info-center enable
+#
+# ─── SSH y ACCESO SEGURO ──────────────────────────────────
+stelnet server enable
+ssh authentication-type default password
+local-user admin password cipher Admin@2024
+local-user admin privilege level 15
+local-user admin service-type ssh terminal
+undo telnet server enable
+#
+# ─── VLANs ───────────────────────────────────────────────
+${vlanBlock.map(v => `vlan ${v.id}\n description ${v.nombre}`).join('\n')}
+#
+# ─── INTERFACES VLANIF ────────────────────────────────────
+${vlanBlock.map(v => `interface Vlanif${v.id}\n description Gateway-VLAN${v.id}-${v.nombre}\n ip address ${v.gw} 255.255.255.0\n undo shutdown`).join('\n')}
+#
+# ─── ROUTING OSPF ─────────────────────────────────────────
+ospf 1 router-id 1.1.1.1
+ area 0.0.0.0
+${vlanBlock.map(v => `  network ${v.red} 0.0.0.255`).join('\n')}
+#
+# ─── PORT SECURITY ────────────────────────────────────────
+interface GigabitEthernet0/0/1
+ port link-type access
+ port-security enable
+ port-security max-mac-num 2
+ port-security action restrict
+ dhcp snooping enable
+ stp edged-port enable
+#
+# ─── GUARDAR CONFIGURACIÓN ───────────────────────────────
+return
+save
+y`;
+  }
+
+  if (vendor === 'fortinet') {
+    return `# ============================================================
+# FORTINET FortiOS — ${state.nombre}
+# Fabricante: Fortinet | Routing: ${state.routing.toUpperCase()}
+# ============================================================
+#
+# ─── ACCESO INICIAL (CLI Fortinet) ───────────────────────
+# Conectar por SSH/consola:  admin / (contraseña vacía o configurada)
+# Ejecutar los comandos a continuación:
+#
+# ─── CONFIGURACIÓN BASE ──────────────────────────────────
+config system global
+    set hostname "${hostname}"
+    set admin-https-redirect enable
+    set admintimeout 30
+    set timezone 14
+end
+
+# ─── CONTRASEÑA ADMIN ─────────────────────────────────────
+config system admin
+    edit "admin"
+        set password Admin@2024
+    next
+end
+
+# ─── VLANs ───────────────────────────────────────────────
+${vlanBlock.map(v => `config system interface
+    edit "VLAN${v.id}"
+        set vdom "root"
+        set ip ${v.gw} 255.255.255.0
+        set allowaccess ping https ssh
+        set type vlan
+        set vlanid ${v.id}
+        set alias "${v.nombre}"
+    next
+end`).join('\n')}
+
+# ─── ROUTING OSPF ─────────────────────────────────────────
+config router ospf
+    set router-id 1.1.1.1
+    config area
+        edit 0.0.0.0
+        next
+    end
+    config network
+${vlanBlock.map((v,i) => `        edit ${i+1}
+            set prefix ${v.red} 255.255.255.0
+            set area 0.0.0.0
+        next`).join('\n')}
+    end
+end
+
+# ─── POLÍTICA FIREWALL BASE ────────────────────────────────
+config firewall policy
+    edit 1
+        set name "LAN_to_WAN"
+        set srcintf "internal"
+        set dstintf "wan1"
+        set srcaddr "all"
+        set dstaddr "all"
+        set action accept
+        set schedule "always"
+        set service "ALL"
+        set nat enable
+    next
+end`;
+  }
+
+  if (vendor === 'mikrotik') {
+    return `# ============================================================
+# MikroTik RouterOS — ${state.nombre}
+# Fabricante: MikroTik | Routing: ${state.routing.toUpperCase()}
+# ============================================================
+#
+# ─── ACCESO INICIAL ───────────────────────────────────────
+# Conectar por WinBox/SSH al router (admin / sin contraseña por defecto)
+# Ejecutar en terminal:
+#
+# ─── CONFIGURACIÓN BASE ──────────────────────────────────
+/system identity set name="${hostname}"
+/user set admin password=Admin@2024
+
+# ─── DESACTIVAR SERVICIOS INSEGUROS ───────────────────────
+/ip service disable telnet,ftp,www,api
+/ip service enable ssh
+/ip service set ssh port=22
+
+# ─── BRIDGE Y VLANs ───────────────────────────────────────
+/interface bridge add name=bridge1 vlan-filtering=yes protocol-mode=rstp
+${vlanBlock.map(v => `/interface vlan add name=vlan${v.id} vlan-id=${v.id} interface=bridge1 comment="${v.nombre}"`).join('\n')}
+
+# ─── IPs DE GATEWAY ───────────────────────────────────────
+${vlanBlock.map(v => `/ip address add address=${v.gw}/24 interface=vlan${v.id} comment="GW-VLAN${v.id}-${v.nombre}"`).join('\n')}
+
+# ─── OSPF ─────────────────────────────────────────────────
+/routing ospf instance add name=default router-id=1.1.1.1
+/routing ospf area add name=backbone area-id=0.0.0.0 instance=default
+${vlanBlock.map(v => `/routing ospf interface-template add interfaces=vlan${v.id} area=backbone`).join('\n')}
+
+# ─── DHCP SERVERS ─────────────────────────────────────────
+${vlanBlock.map(v => `/ip pool add name=pool-vlan${v.id} ranges=${v.red.replace(/\.\d+$/,'.10')}-${v.red.replace(/\.\d+$/,'.250')}
+/ip dhcp-server add name=dhcp-vlan${v.id} interface=vlan${v.id} address-pool=pool-vlan${v.id} disabled=no
+/ip dhcp-server network add address=${v.red}/24 gateway=${v.gw}`).join('\n')}
+
+# ─── FIREWALL BASE ────────────────────────────────────────
+/ip firewall filter
+add chain=input action=accept connection-state=established,related comment="Accept established"
+add chain=input action=accept protocol=icmp comment="Accept ICMP"
+add chain=input action=accept src-address-list=admin_allowed in-interface=bridge1 comment="Admin LAN"
+add chain=input action=drop comment="Drop all other input"
+
+# ─── GUARDAR ─────────────────────────────────────────────
+/system backup save name=${hostname}-config`;
+  }
+
+  return '# Fabricante no reconocido';
+}
+
+// ====================== COMANDOS POR EQUIPO ======================
+// Devuelve array de {rol, modelo, hostname, cmds}
+function getComandosPorEquipo(vendor) {
+  const vlanBlock = state.vlans;
+  const base      = state.nombre.replace(/\s+/g, '-');
+  const domain    = (state.org || 'empresa').replace(/\s+/g,'').toLowerCase() + '.local';
+  const p         = state.red.split('.');
+  const hw        = state.hardware;
+  const routing   = state.routing.toUpperCase();
+  const devices   = [];
+
+  // ── helpers ──────────────────────────────────────────────────────────
+  const short = (s,n) => s && s.length>n ? s.substring(0,n)+'...' : (s||'');
+  const c = (ch, txt) => ch === '!' ? `! ${txt}` : `# ${txt}`;
+  const sep = (ch, lbl) => ch === '!'
+    ? `!\n! ${'─'.repeat(50)}\n! ${lbl}\n! ${'─'.repeat(50)}`
+    : `#\n# ${'─'.repeat(50)}\n# ${lbl}\n# ${'─'.repeat(50)}`;
+
+  const vlanIds = vlanBlock.map(v=>v.id).join(',');
+
+  if (vendor === 'cisco') {
+    const ch = '!';
+
+    // ── 1. FIREWALL / ROUTER PERIMETRAL ──────────────────────────────
+    const fwHost = base + '-FW-01';
+    devices.push({ rol: 'Firewall / Router Perimetral', modelo: hw[0]?.modelo||'ASA', hostname: fwHost, cmds:
+`${sep(ch,'CISCO ASA / IOS-XE — FIREWALL PERIMETRAL — '+fwHost)}
+${c(ch,'Proyecto: '+state.nombre+' | Org: '+state.org)}
+${c(ch,'Red: '+state.red+'/'+state.cidr+' | Routing: '+routing)}
+${ch}
+enable
+configure terminal
+${ch}
+hostname ${fwHost}
+ip domain-name ${domain}
+ip ssh version 2
+crypto key generate rsa modulus 2048
+username admin privilege 15 secret Admin@2024
+enable secret Admin@Enable2024
+aaa new-model
+aaa authentication login default local
+aaa authorization exec default local
+service password-encryption
+no ip http server
+no ip http secure-server
+logging buffered 16384 informational
+ntp server pool.ntp.org
+banner motd ^
+*** ${fwHost} — Acceso Autorizado Unicamente — ${state.nombre} ***
+^
+${ch}
+${sep(ch,'INTERFACES WAN / LAN')}
+interface GigabitEthernet0/0
+ description WAN_Enlace_Proveedor
+ ip address dhcp
+ ip nat outside
+ no shutdown
+interface GigabitEthernet0/1
+ description LAN_Trunk_Core
+ no shutdown
+${ch}
+${sep(ch,'SUBINTERFACES INTER-VLAN (Router-on-a-Stick)')}
+${vlanBlock.map(v=>`interface GigabitEthernet0/1.${v.id}
+ encapsulation dot1Q ${v.id}
+ description GW-VLAN${v.id}-${v.nombre}
+ ip address ${v.gw} ${v.mask}
+ ip nat inside`).join('\n')}
+${ch}
+${sep(ch,'NAT OVERLOAD (PAT)')}
+ip access-list standard NAT_LAN
+${vlanBlock.map(v=>` permit ${v.red} 0.0.0.255`).join('\n')}
+ip nat inside source list NAT_LAN interface GigabitEthernet0/0 overload
+${ch}
+${sep(ch,'ACLs INTER-VLAN ZERO TRUST')}
+ip access-list extended VLAN10-MGMT-IN
+ permit tcp 10.0.0.0 0.255.255.255 any eq 22
+ permit icmp 10.0.0.0 0.255.255.255 any
+ deny   ip any any log
+ip access-list extended VLAN40-SERVERS-IN
+ permit tcp any ${vlanBlock.find(v=>v.nombre==='Servidores')?.red||'192.168.4.0'} 0.0.0.255 eq 443
+ permit tcp any ${vlanBlock.find(v=>v.nombre==='Servidores')?.red||'192.168.4.0'} 0.0.0.255 eq 80
+ deny   ip any any log
+${ch}
+${sep(ch,'ROUTING '+routing)}
+${routing==='OSPF'?`router ospf 1
+ router-id 1.1.1.1
+ auto-cost reference-bandwidth 10000
+${vlanBlock.map(v=>` network ${v.red} 0.0.0.255 area 0`).join('\n')}
+ default-information originate always`:
+routing==='BGP'?`router bgp 65001
+ bgp router-id 1.1.1.1
+ bgp log-neighbor-changes
+${vlanBlock.map(v=>` network ${v.red} mask 255.255.255.0`).join('\n')}`:
+`${vlanBlock.map(v=>`ip route ${v.red} 255.255.255.0 GigabitEthernet0/1.${v.id}`).join('\n')}`}
+${ch}
+${sep(ch,'QoS VoIP — DSCP EF')}
+class-map match-any VOIP-CLASS
+ match ip dscp ef
+ match ip dscp cs3
+policy-map QOS-WAN
+ class VOIP-CLASS
+  priority percent 30
+ class class-default
+  fair-queue
+interface GigabitEthernet0/0
+ service-policy output QOS-WAN
+${ch}
+end
+write memory` });
+
+    // ── 2. SWITCH CORE L3 ────────────────────────────────────────────
+    const coreHost = base + '-SW-CORE-01';
+    devices.push({ rol: 'Switch Core (Capa 3)', modelo: hw[1]?.modelo||'C9300', hostname: coreHost, cmds:
+`${sep(ch,'CISCO — SWITCH CORE CAPA 3 — '+coreHost)}
+${c(ch,'VLANs: '+vlanBlock.length+' | Routing: '+routing+' | Stack/VSS')}
+${ch}
+enable
+configure terminal
+${ch}
+hostname ${coreHost}
+ip domain-name ${domain}
+ip routing
+ip ssh version 2
+crypto key generate rsa modulus 2048
+username admin privilege 15 secret Admin@2024
+enable secret Admin@Enable2024
+aaa new-model
+aaa authentication login default local
+service password-encryption
+spanning-tree mode rapid-pvst
+spanning-tree extend system-id
+${vlanBlock.map(v=>`spanning-tree vlan ${v.id} priority 4096`).join('\n')}
+${ch}
+${sep(ch,'VLANs')}
+${vlanBlock.map(v=>`vlan ${v.id}
+ name ${v.nombre.replace(/\s+/g,'-')}`).join('\n')}
+${ch}
+${sep(ch,'SVIs — GATEWAYS INTER-VLAN')}
+${vlanBlock.map(v=>`interface Vlan${v.id}
+ description GW-VLAN${v.id}-${v.nombre}
+ ip address ${v.gw} ${v.mask}
+ ip helper-address ${p[0]}.${p[1]}.0.17
+ no shutdown`).join('\n')}
+${ch}
+${sep(ch,'UPLINK AL FIREWALL (TRUNK)')}
+interface GigabitEthernet1/0/1
+ description UPLINK_FW-01
+ switchport mode trunk
+ switchport trunk allowed vlan ${vlanIds}
+ switchport trunk native vlan 99
+ spanning-tree guard root
+ no shutdown
+${ch}
+${sep(ch,'DOWNLINKS A SWITCHES DE ACCESO (TRUNK)')}
+interface range GigabitEthernet1/0/2 - 12
+ description DOWNLINK_SW-ACCESO
+ switchport mode trunk
+ switchport trunk allowed vlan ${vlanIds}
+ switchport trunk native vlan 99
+ spanning-tree guard root
+ no shutdown
+${ch}
+${sep(ch,'ROUTING '+routing)}
+${routing==='OSPF'?`router ospf 1
+ router-id 2.2.2.2
+ auto-cost reference-bandwidth 10000
+ passive-interface default
+ no passive-interface GigabitEthernet1/0/1
+${vlanBlock.map(v=>` network ${v.red} 0.0.0.255 area 0`).join('\n')}`:
+`${vlanBlock.map(v=>`ip route 0.0.0.0 0.0.0.0 ${p[0]}.${p[1]}.0.1`).slice(0,1).join('\n')}`}
+${ch}
+${sep(ch,'DHCP SNOOPING / DAI')}
+ip dhcp snooping
+${vlanBlock.map(v=>`ip dhcp snooping vlan ${v.id}`).join('\n')}
+no ip dhcp snooping information option
+ip arp inspection vlan ${vlanIds}
+ip arp inspection validate src-mac dst-mac ip
+${ch}
+end
+write memory` });
+
+    // ── 3. SWITCHES DE ACCESO ─────────────────────────────────────────
+    const accCount = hw[2]?.cantidad || 3;
+    for (let i = 1; i <= Math.min(accCount, 9); i++) {
+      const accHost = base + `-SW-ACC-0${i}`;
+      devices.push({ rol: `Switch Acceso ${i} / ${accCount}`, modelo: hw[2]?.modelo||'C9200', hostname: accHost, cmds:
+`${sep(ch,'CISCO — SWITCH ACCESO CAPA 2 — '+accHost+' ('+i+'/'+accCount+')')}
+${ch}
+enable
+configure terminal
+${ch}
+hostname ${accHost}
+ip domain-name ${domain}
+ip ssh version 2
+crypto key generate rsa modulus 2048
+username admin privilege 15 secret Admin@2024
+enable secret Admin@Enable2024
+aaa new-model
+aaa authentication login default local
+service password-encryption
+spanning-tree mode rapid-pvst
+${ch}
+${sep(ch,'VLANs')}
+${vlanBlock.map(v=>`vlan ${v.id}
+ name ${v.nombre.replace(/\s+/g,'-')}`).join('\n')}
+${ch}
+${sep(ch,'UPLINK AL CORE (TRUNK)')}
+interface GigabitEthernet0/1
+ description UPLINK_SW-CORE-01
+ switchport mode trunk
+ switchport trunk allowed vlan ${vlanIds}
+ switchport trunk native vlan 99
+ spanning-tree guard root
+ no shutdown
+${ch}
+${sep(ch,'PUERTOS DE ACCESO — USUARIOS')}
+interface range GigabitEthernet0/2 - 20
+ description ACCESO_USUARIOS
+ switchport mode access
+ switchport access vlan ${vlanBlock.find(v=>v.nombre==='Usuarios')?.id||20}
+ switchport nonegotiate
+ ip dhcp snooping limit rate 15
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+ storm-control broadcast level 20
+ storm-control action shutdown
+ switchport port-security maximum 3
+ switchport port-security violation restrict
+ switchport port-security
+ no shutdown
+${ch}
+${sep(ch,'PUERTOS VoIP (DATA + VOZ)')}
+interface range GigabitEthernet0/21 - 24
+ description ACCESO_VOIP
+ switchport mode access
+ switchport access vlan ${vlanBlock.find(v=>v.nombre==='Usuarios')?.id||20}
+ switchport voice vlan ${vlanBlock.find(v=>v.nombre==='VoIP')?.id||50}
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+ mls qos trust dscp
+ no shutdown
+${ch}
+${sep(ch,'DHCP SNOOPING / SECURITY')}
+ip dhcp snooping
+${vlanBlock.map(v=>`ip dhcp snooping vlan ${v.id}`).join('\n')}
+no ip dhcp snooping information option
+ip arp inspection vlan ${vlanIds}
+${ch}
+${sep(ch,'MANAGEMENT IP')}
+interface Vlan${vlanBlock.find(v=>v.nombre==='Gestión')?.id||10}
+ description MGMT
+ ip address ${p[0]}.${p[1]}.1.${10+i} 255.255.255.0
+ no shutdown
+ip default-gateway ${vlanBlock.find(v=>v.nombre==='Gestión')?.gw||p[0]+'.'+p[1]+'.1.1'}
+${ch}
+end
+write memory` });
+    }
+
+    // ── 4. CONTROLADORA Wi-Fi ─────────────────────────────────────────
+    const wlcHost = base + '-WLC-01';
+    devices.push({ rol: 'Controladora Wi-Fi (WLC)', modelo: hw[4]?.modelo||'C9800-L', hostname: wlcHost, cmds:
+`${sep(ch,'CISCO WLC / C9800 — CONTROLADORA WI-FI — '+wlcHost)}
+${ch}
+enable
+configure terminal
+${ch}
+hostname ${wlcHost}
+ip domain-name ${domain}
+username admin privilege 15 secret Admin@2024
+enable secret Admin@Enable2024
+${ch}
+${sep(ch,'INTERFACE DE MANAGEMENT')}
+interface GigabitEthernet0
+ description MGMT
+ ip address ${p[0]}.${p[1]}.1.5 255.255.255.0
+ no shutdown
+ip default-gateway ${vlanBlock.find(v=>v.nombre==='Gestión')?.gw||p[0]+'.'+p[1]+'.1.1'}
+${ch}
+${sep(ch,'SSID CORPORATIVO')}
+wlan CORP-WIFI 1 CORP-WIFI
+ client vlan ${vlanBlock.find(v=>v.nombre==='Wi-Fi')?.id||30}
+ no security wpa akm dot1x
+ security wpa akm psk
+ security wpa psk set-key ascii 0 Corp@WiFi2024
+ security wpa version wpa2
+ no shutdown
+${ch}
+${sep(ch,'SSID INVITADOS (AISLADO)')}
+wlan GUEST-WIFI 2 GUEST-WIFI
+ client vlan ${vlanBlock.find(v=>v.nombre==='Invitados')?.id||70}
+ security wpa akm psk
+ security wpa psk set-key ascii 0 Guest@2024
+ security wpa version wpa2
+ no shutdown
+${ch}
+${sep(ch,'PERFIL DE AP')}
+ap profile default-ap-profile
+ description APs-${state.nombre}
+ mgmt-vlan ${vlanBlock.find(v=>v.nombre==='Gestión')?.id||10}
+${ch}
+end
+write memory` });
+
+  } // end cisco
+
+  else if (vendor === 'huawei') {
+    const ch = '#';
+
+    // ── FIREWALL HUAWEI ───────────────────────────────────────────────
+    const fwHost = base + '-FW-01';
+    devices.push({ rol: 'Firewall / USG', modelo: hw[0]?.modelo||'USG6530E', hostname: fwHost, cmds:
+`${sep(ch,'HUAWEI USG — FIREWALL PERIMETRAL — '+fwHost)}
+${c(ch,'Proyecto: '+state.nombre+' | Routing: '+routing)}
+${ch}
+<Huawei> system-view
+${ch}
+sysname ${fwHost}
+undo info-center enable
+${ch}
+${sep(ch,'ACCESO SEGURO')}
+stelnet server enable
+ssh authentication-type default password
+local-user admin password cipher Admin@2024
+local-user admin privilege level 15
+local-user admin service-type ssh terminal
+undo telnet server enable
+${ch}
+${sep(ch,'INTERFACES')}
+interface GigabitEthernet0/0/0
+ description WAN
+ ip address dhcp-alloc
+interface GigabitEthernet0/0/1
+ description LAN_TRUNK_CORE
+ portswitch
+${ch}
+${sep(ch,'SUBINTERFACES INTER-VLAN')}
+${vlanBlock.map(v=>`interface GigabitEthernet0/0/1.${v.id}
+ vlan-type dot1q ${v.id}
+ description GW-VLAN${v.id}-${v.nombre}
+ ip address ${v.gw} 255.255.255.0`).join('\n')}
+${ch}
+${sep(ch,'ZONAS DE SEGURIDAD')}
+firewall zone trust
+${vlanBlock.map(v=>` add interface GigabitEthernet0/0/1.${v.id}`).join('\n')}
+firewall zone untrust
+ add interface GigabitEthernet0/0/0
+${ch}
+${sep(ch,'POLÍTICAS DE SEGURIDAD')}
+security-policy
+ rule name LAN_TO_WAN
+  source-zone trust
+  destination-zone untrust
+  action permit
+ rule name DENY_ALL
+  action deny
+${ch}
+${sep(ch,'NAT')}
+nat address-group WAN_POOL
+ route enable
+nat-policy
+ rule name SNAT_LAN
+  source-zone trust
+  egress-interface GigabitEthernet0/0/0
+  action nat easy-ip
+${ch}
+${sep(ch,'ROUTING '+routing)}
+${routing==='OSPF'?`ospf 1 router-id 1.1.1.1
+ area 0.0.0.0
+${vlanBlock.map(v=>`  network ${v.red} 0.0.0.255`).join('\n')}`:
+`${vlanBlock.map(v=>`ip route-static ${v.red} 255.255.255.0 GigabitEthernet0/0/1.${v.id}`).join('\n')}`}
+${ch}
+return
+save
+y` });
+
+    // ── SWITCH CORE HUAWEI ────────────────────────────────────────────
+    const coreHost = base + '-SW-CORE-01';
+    devices.push({ rol: 'Switch Core (Capa 3)', modelo: hw[1]?.modelo||'S5731', hostname: coreHost, cmds:
+`${sep(ch,'HUAWEI — SWITCH CORE CAPA 3 — '+coreHost)}
+${ch}
+<Huawei> system-view
+${ch}
+sysname ${coreHost}
+undo info-center enable
+stelnet server enable
+local-user admin password cipher Admin@2024
+local-user admin privilege level 15
+local-user admin service-type ssh terminal
+undo telnet server enable
+${ch}
+${sep(ch,'VLANs')}
+${vlanBlock.map(v=>`vlan ${v.id}
+ description ${v.nombre}`).join('\n')}
+${ch}
+${sep(ch,'VLANIF (SVIs)')}
+${vlanBlock.map(v=>`interface Vlanif${v.id}
+ description GW-VLAN${v.id}-${v.nombre}
+ ip address ${v.gw} 255.255.255.0
+ undo shutdown`).join('\n')}
+${ch}
+${sep(ch,'UPLINK AL FIREWALL')}
+interface GigabitEthernet0/0/1
+ description UPLINK_FW-01
+ port link-type trunk
+ port trunk allow-pass vlan ${vlanIds}
+ port trunk pvid vlan 99
+ undo shutdown
+${ch}
+${sep(ch,'DOWNLINKS ACCESO')}
+interface range GigabitEthernet0/0/2 to GigabitEthernet0/0/12
+ description DOWNLINK_SW-ACCESO
+ port link-type trunk
+ port trunk allow-pass vlan ${vlanIds}
+ port trunk pvid vlan 99
+ undo shutdown
+${ch}
+${sep(ch,'ROUTING OSPF')}
+ospf 1 router-id 2.2.2.2
+ area 0.0.0.0
+${vlanBlock.map(v=>`  network ${v.red} 0.0.0.255`).join('\n')}
+${ch}
+${sep(ch,'DHCP SNOOPING')}
+dhcp enable
+dhcp snooping enable
+${vlanBlock.map(v=>`vlan ${v.id}
+ dhcp snooping enable`).join('\n')}
+${ch}
+return
+save
+y` });
+
+    // ── SWITCH ACCESO HUAWEI ──────────────────────────────────────────
+    const accCount = hw[2]?.cantidad || 3;
+    for (let i=1; i<=Math.min(accCount,9); i++) {
+      const accHost = base + `-SW-ACC-0${i}`;
+      devices.push({ rol: `Switch Acceso ${i} / ${accCount}`, modelo: hw[2]?.modelo||'S5735', hostname: accHost, cmds:
+`${sep(ch,'HUAWEI — SWITCH ACCESO — '+accHost+' ('+i+'/'+accCount+')')}
+${ch}
+<Huawei> system-view
+sysname ${accHost}
+undo info-center enable
+local-user admin password cipher Admin@2024
+local-user admin privilege level 15
+undo telnet server enable
+${ch}
+${sep(ch,'VLANs')}
+${vlanBlock.map(v=>`vlan ${v.id}
+ description ${v.nombre}`).join('\n')}
+${ch}
+${sep(ch,'UPLINK AL CORE (TRUNK)')}
+interface GigabitEthernet0/0/1
+ description UPLINK_SW-CORE-01
+ port link-type trunk
+ port trunk allow-pass vlan ${vlanIds}
+ port trunk pvid vlan 99
+ undo shutdown
+${ch}
+${sep(ch,'PUERTOS DE ACCESO')}
+interface range GigabitEthernet0/0/2 to GigabitEthernet0/0/22
+ description ACCESO_USUARIOS
+ port link-type access
+ port default vlan ${vlanBlock.find(v=>v.nombre==='Usuarios')?.id||20}
+ port-security enable
+ port-security max-mac-num 3
+ port-security action restrict
+ dhcp snooping enable
+ stp edged-port enable
+ undo shutdown
+${ch}
+${sep(ch,'MANAGEMENT')}
+interface Vlanif${vlanBlock.find(v=>v.nombre==='Gestión')?.id||10}
+ description MGMT
+ ip address ${p[0]}.${p[1]}.1.${10+i} 255.255.255.0
+ undo shutdown
+ip route-static 0.0.0.0 0 ${vlanBlock.find(v=>v.nombre==='Gestión')?.gw||p[0]+'.'+p[1]+'.1.1'}
+${ch}
+return
+save
+y` });
+    }
+
+    // ── WLC HUAWEI ────────────────────────────────────────────────────
+    const wlcHost = base + '-WLC-01';
+    devices.push({ rol: 'Controladora Wi-Fi (AC)', modelo: hw[4]?.modelo||'AC6508', hostname: wlcHost, cmds:
+`${sep(ch,'HUAWEI AC — CONTROLADORA WI-FI — '+wlcHost)}
+${ch}
+<Huawei> system-view
+sysname ${wlcHost}
+${ch}
+${sep(ch,'MANAGEMENT')}
+interface Vlanif${vlanBlock.find(v=>v.nombre==='Gestión')?.id||10}
+ ip address ${p[0]}.${p[1]}.1.6 255.255.255.0
+ undo shutdown
+ip route-static 0.0.0.0 0 ${vlanBlock.find(v=>v.nombre==='Gestión')?.gw||p[0]+'.'+p[1]+'.1.1'}
+${ch}
+${sep(ch,'SSID CORPORATIVO')}
+wlan
+ ssid-profile name CORP-WIFI
+  ssid CORP-WIFI
+ security-profile name CORP-SEC
+  security wpa2 psk pass-phrase Corp@WiFi2024 aes
+ vap-profile name CORP-VAP
+  ssid-profile CORP-WIFI
+  security-profile CORP-SEC
+  service-vlan vlan-id ${vlanBlock.find(v=>v.nombre==='Wi-Fi')?.id||30}
+${ch}
+${sep(ch,'SSID INVITADOS')}
+wlan
+ ssid-profile name GUEST-WIFI
+  ssid GUEST-WIFI
+ vap-profile name GUEST-VAP
+  ssid-profile GUEST-WIFI
+  service-vlan vlan-id ${vlanBlock.find(v=>v.nombre==='Invitados')?.id||70}
+${ch}
+return
+save
+y` });
+
+  } // end huawei
+
+  else if (vendor === 'fortinet') {
+    const ch = '#';
+    const fwHost = base + '-FGT-01';
+    // Fortinet: FW es el dispositivo central (all-in-one), Switches son FortiSwitch
+    devices.push({ rol: 'FortiGate — Firewall / Router', modelo: hw[0]?.modelo||'FG-200F', hostname: fwHost, cmds:
+`${sep(ch,'FORTINET FORTIGATE — FIREWALL CENTRAL — '+fwHost)}
+${c(ch,'Proyecto: '+state.nombre+' | Routing: '+routing)}
+${ch}
+config system global
+    set hostname "${fwHost}"
+    set admin-https-redirect enable
+    set admintimeout 30
+    set timezone 14
+    set admin-sport 8443
+end
+config system admin
+    edit "admin"
+        set password Admin@2024
+        set accprofile "super_admin"
+    next
+end
+${ch}
+${sep(ch,'VLANS / INTERFACES')}
+${vlanBlock.map(v=>`config system interface
+    edit "VLAN${v.id}"
+        set vdom "root"
+        set ip ${v.gw} 255.255.255.0
+        set allowaccess ping https ssh
+        set type vlan
+        set vlanid ${v.id}
+        set interface "internal"
+        set alias "${v.nombre}"
+        set role lan
+    next
+end`).join('\n')}
+${ch}
+${sep(ch,'DHCP SERVERS POR VLAN')}
+${vlanBlock.map((v,i)=>`config system dhcp server
+    edit ${i+1}
+        set interface "VLAN${v.id}"
+        set dns-service default
+        config ip-range
+            edit 1
+                set start-ip ${v.red.replace(/\.\d+$/,'.10')}
+                set end-ip   ${v.red.replace(/\.\d+$/,'.250')}
+            next
+        end
+        set gateway ${v.gw}
+        set netmask 255.255.255.0
+    next
+end`).join('\n')}
+${ch}
+${sep(ch,'ROUTING '+routing)}
+${routing==='OSPF'?`config router ospf
+    set router-id 1.1.1.1
+    config area
+        edit 0.0.0.0
+        next
+    end
+    config network
+${vlanBlock.map((v,i)=>`        edit ${i+1}
+            set prefix ${v.red} 255.255.255.0
+            set area 0.0.0.0
+        next`).join('\n')}
+    end
+end`:`config router static
+    edit 1
+        set dst 0.0.0.0 0.0.0.0
+        set gateway 0.0.0.0
+        set device "wan1"
+    next
+end`}
+${ch}
+${sep(ch,'POLITICAS FIREWALL')}
+config firewall policy
+    edit 1
+        set name "LAN_to_WAN"
+        set srcintf "internal"
+        set dstintf "wan1"
+        set srcaddr "all"
+        set dstaddr "all"
+        set action accept
+        set schedule "always"
+        set service "ALL"
+        set nat enable
+        set logtraffic all
+    next
+${vlanBlock.map((v,i)=>`    edit ${i+10}
+        set name "VLAN${v.id}-INTRA"
+        set srcintf "VLAN${v.id}"
+        set dstintf "VLAN${v.id}"
+        set srcaddr "all"
+        set dstaddr "all"
+        set action accept
+        set schedule "always"
+        set service "ALL"
+    next`).join('\n')}
+end
+${ch}
+${sep(ch,'QoS VoIP')}
+config firewall shaper traffic-shaper
+    edit "VOIP-PRIO"
+        set guaranteed-bandwidth 5000
+        set maximum-bandwidth 50000
+        set per-policy disable
+        set priority high
+    next
+end` });
+
+    // FortiSwitch Core
+    const swHost = base + '-FSW-CORE-01';
+    devices.push({ rol: 'FortiSwitch Core', modelo: hw[1]?.modelo||'FSW-448E', hostname: swHost, cmds:
+`${sep(ch,'FORTISWITCH CORE — '+swHost)}
+${c(ch,'Administrado desde FortiGate via FortiLink')}
+${ch}
+${sep(ch,'CONFIGURACION VIA FORTIGATE CLI')}
+config switch-controller managed-switch
+    edit "${swHost}"
+        set description "Core Switch ${state.nombre}"
+        config ports
+${vlanBlock.map((v,i)=>`            edit "port${i+1}"
+                set vlan "VLAN${v.id}"
+                set type trunk
+            next`).join('\n')}
+        end
+    next
+end
+${ch}
+config switch-controller vlan
+${vlanBlock.map(v=>`    edit "VLAN${v.id}"
+        set description "${v.nombre}"
+        set color ${(v.id % 32) + 1}
+    next`).join('\n')}
+end` });
+
+    const accCount = hw[2]?.cantidad || 3;
+    for (let i=1; i<=Math.min(accCount,9); i++) {
+      const accHost = base + `-FSW-ACC-0${i}`;
+      devices.push({ rol: `FortiSwitch Acceso ${i} / ${accCount}`, modelo: hw[2]?.modelo||'FSW-224E', hostname: accHost, cmds:
+`${sep(ch,'FORTISWITCH ACCESO — '+accHost+' ('+i+'/'+accCount+')')}
+${c(ch,'Administrado desde FortiGate via FortiLink')}
+${ch}
+config switch-controller managed-switch
+    edit "${accHost}"
+        set description "Access Switch ${i} — ${state.nombre}"
+        config ports
+            edit "uplink"
+                set type trunk
+                set trunk-members "port1"
+                set allowed-vlans ${vlanIds}
+            next
+${Array.from({length:20},(_,k)=>`            edit "port${k+2}"
+                set vlan "VLAN${vlanBlock.find(v=>v.nombre==='Usuarios')?.id||20}"
+                set allowed-vlans ${vlanIds}
+            next`).join('\n')}
+        end
+    next
+end` });
+    }
+
+  } // end fortinet
+
+  else if (vendor === 'mikrotik') {
+    const ch = '#';
+    const fwHost = base + '-CCR-01';
+    devices.push({ rol: 'MikroTik Router (CCR)', modelo: hw[0]?.modelo||'CCR2004', hostname: fwHost, cmds:
+`${sep(ch,'MIKROTIK ROUTEROS — ROUTER CENTRAL — '+fwHost)}
+${c(ch,'Proyecto: '+state.nombre+' | Routing: '+routing)}
+${ch}
+/system identity set name="${fwHost}"
+/user set admin password=Admin@2024
+${ch}
+${sep(ch,'SERVICIOS SEGUROS')}
+/ip service disable telnet,ftp,www,api
+/ip service enable ssh
+/ip service set ssh port=22
+/tool bandwidth-server set enabled=no
+/ip neighbor discovery-settings set discover-interface-list=none
+${ch}
+${sep(ch,'BRIDGE Y VLANs')}
+/interface bridge add name=bridge1 vlan-filtering=yes protocol-mode=rstp comment="Bridge principal"
+${vlanBlock.map(v=>`/interface vlan add name=vlan${v.id} vlan-id=${v.id} interface=bridge1 comment="${v.nombre}"`).join('\n')}
+${ch}
+${sep(ch,'IPs DE GATEWAY')}
+${vlanBlock.map(v=>`/ip address add address=${v.gw}/24 interface=vlan${v.id} comment="GW-VLAN${v.id}-${v.nombre}"`).join('\n')}
+${ch}
+${sep(ch,'DHCP SERVERS')}
+${vlanBlock.map(v=>`/ip pool add name=pool-vlan${v.id} ranges=${v.red.replace(/\.\d+$/,'.10')}-${v.red.replace(/\.\d+$/,'.250')}
+/ip dhcp-server add name=dhcp-vlan${v.id} interface=vlan${v.id} address-pool=pool-vlan${v.id} disabled=no
+/ip dhcp-server network add address=${v.red}/24 gateway=${v.gw} dns-server=8.8.8.8,8.8.4.4`).join('\n')}
+${ch}
+${sep(ch,'ROUTING '+routing)}
+${routing==='OSPF'?`/routing ospf instance add name=default router-id=1.1.1.1
+/routing ospf area add name=backbone area-id=0.0.0.0 instance=default
+${vlanBlock.map(v=>`/routing ospf interface-template add interfaces=vlan${v.id} area=backbone`).join('\n')}`:
+`/ip route add dst-address=0.0.0.0/0 gateway=ether1`}
+${ch}
+${sep(ch,'NAT MASQUERADE')}
+/ip firewall nat add chain=srcnat action=masquerade out-interface=ether1 comment="SNAT WAN"
+${ch}
+${sep(ch,'FIREWALL INPUT RULES')}
+/ip firewall filter
+add chain=input action=accept connection-state=established,related comment="Accept established"
+add chain=input action=accept protocol=icmp comment="Accept ICMP"
+add chain=input action=accept src-address-list=admin_allowed comment="Admin LAN"
+add chain=input action=drop comment="Drop all other input"
+${ch}
+${sep(ch,'QoS VoIP (Simple Queues)')}
+/queue type add name=pcq-voip kind=pcq pcq-classifier=src-address,dst-address pcq-dst-address-mask=32
+/queue simple add name=VOIP-PRIO max-limit=50M/50M priority=1/1 queue=pcq-voip/pcq-voip \
+  target=${vlanBlock.find(v=>v.nombre==='VoIP')?.red||'192.168.7.0'}/24 comment="VoIP Priority"
+${ch}
+${sep(ch,'GUARDAR')}
+/system backup save name=${fwHost}-config` });
+
+    // MikroTik Switch Core (CRS)
+    const swHost = base + '-CRS-CORE-01';
+    devices.push({ rol: 'MikroTik Switch Core (CRS)', modelo: hw[1]?.modelo||'CRS354', hostname: swHost, cmds:
+`${sep(ch,'MIKROTIK CRS — SWITCH CORE — '+swHost)}
+${ch}
+/system identity set name="${swHost}"
+/user set admin password=Admin@2024
+/ip service disable telnet,ftp,www,api
+${ch}
+${sep(ch,'BRIDGE Y VLANs')}
+/interface bridge add name=bridge1 vlan-filtering=yes
+${vlanBlock.map(v=>`/interface bridge vlan add bridge=bridge1 vlan-ids=${v.id} tagged=bridge1 comment="${v.nombre}"`).join('\n')}
+${ch}
+${sep(ch,'UPLINK AL CCR (TRUNK TAGGED)')}
+/interface bridge port add bridge=bridge1 interface=ether1 pvid=99 comment="UPLINK_CCR-01"
+/interface bridge vlan add bridge=bridge1 vlan-ids=${vlanIds.split(',').join(',')} tagged=ether1
+${ch}
+${sep(ch,'DOWNLINKS HACIA ACCESO (TRUNK)')}
+/interface bridge port add bridge=bridge1 interface=ether2 pvid=99 comment="DOWNLINK-ACC-01"
+/interface bridge port add bridge=bridge1 interface=ether3 pvid=99 comment="DOWNLINK-ACC-02"
+/interface bridge port add bridge=bridge1 interface=ether4 pvid=99 comment="DOWNLINK-ACC-03"
+${ch}
+${sep(ch,'MANAGEMENT IP')}
+/interface vlan add name=vlan-mgmt vlan-id=${vlanBlock.find(v=>v.nombre==='Gestión')?.id||10} interface=bridge1
+/ip address add address=${p[0]}.${p[1]}.1.2/24 interface=vlan-mgmt
+/ip route add dst-address=0.0.0.0/0 gateway=${vlanBlock.find(v=>v.nombre==='Gestión')?.gw||p[0]+'.'+p[1]+'.1.1'}
+${ch}
+/system backup save name=${swHost}-config` });
+
+    const accCount = hw[2]?.cantidad || 3;
+    for (let i=1; i<=Math.min(accCount,9); i++) {
+      const accHost = base + `-CRS-ACC-0${i}`;
+      devices.push({ rol: `MikroTik Acceso ${i} / ${accCount}`, modelo: hw[2]?.modelo||'CRS328', hostname: accHost, cmds:
+`${sep(ch,'MIKROTIK CRS — SWITCH ACCESO — '+accHost+' ('+i+'/'+accCount+')')}
+${ch}
+/system identity set name="${accHost}"
+/user set admin password=Admin@2024
+/ip service disable telnet,ftp,www,api
+${ch}
+/interface bridge add name=bridge1 vlan-filtering=yes
+/interface bridge port add bridge=bridge1 interface=ether1 pvid=99 comment="UPLINK_CORE"
+${vlanBlock.map(v=>`/interface bridge vlan add bridge=bridge1 vlan-ids=${v.id} tagged=ether1`).join('\n')}
+${ch}
+${sep(ch,'PUERTOS DE ACCESO')}
+${Array.from({length:20},(_,k)=>`/interface bridge port add bridge=bridge1 interface=ether${k+2} pvid=${vlanBlock.find(v=>v.nombre==='Usuarios')?.id||20} comment="USER-PORT-${k+1}"`).join('\n')}
+${vlanBlock.map(v=>`/interface bridge vlan add bridge=bridge1 vlan-ids=${v.id} untagged=ether2`).slice(0,1).join('\n')}
+${ch}
+/interface vlan add name=vlan-mgmt vlan-id=${vlanBlock.find(v=>v.nombre==='Gestión')?.id||10} interface=bridge1
+/ip address add address=${p[0]}.${p[1]}.1.${10+i}/24 interface=vlan-mgmt
+/ip route add dst-address=0.0.0.0/0 gateway=${vlanBlock.find(v=>v.nombre==='Gestión')?.gw||p[0]+'.'+p[1]+'.1.1'}
+${ch}
+/system backup save name=${accHost}-config` });
+    }
+  } // end mikrotik
+
+  return devices;
+}
+
+// ====================== RENDER COMANDOS CLI ======================
+function renderComandos(vendor) {
+  const el = document.getElementById('comandos-content');
+  if (!el) return;
+  if (!state.vlans.length) { el.innerHTML='<div class="alert alert-info">⚠ Genera el diseño primero desde Parámetros.</div>'; return; }
+
+  const vcls={cisco:'vendor-cisco',huawei:'vendor-huawei',fortinet:'vendor-fortinet',mikrotik:'vendor-mikrotik'};
+  const vcl = vcls[vendor]||'vendor-cisco';
+  const devices = getComandosPorEquipo(vendor);
+
+  // Store devices on state for bulk/export use
+  state._devicesCmds = devices;
+
+  const tabs = devices.map((d,i) =>
+    `<button class="cli-tab ${i===0?'cli-tab-active':''}" onclick="switchCliTab(${i})" id="clitab-${i}">
+      <span style="font-size:11px;opacity:0.7;">${i+1}</span> ${d.rol.split('(')[0].trim()}
+    </button>`
+  ).join('');
+
+  const panels = devices.map((d,i) =>
+    `<div id="clipanel-${i}" class="clipanel" style="display:${i===0?'block':'none'}">
+      <div class="code-block">
+        <div class="code-header">
+          <div>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text2);">${d.hostname}</span>
+            <span class="vendor-badge ${vcl}" style="margin-left:8px;">${d.modelo}</span>
+          </div>
+          <div style="display:flex;gap:8px;">
+            <button class="copy-btn" onclick="copiarTabCLI(${i})">📋 Copiar</button>
+            <button class="copy-btn" onclick="descargarTabCLI(${i})">⬇ .txt</button>
+          </div>
+        </div>
+        <div class="code-body cli-code" id="cli-output-${i}">${d.cmds.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>
+      </div>
+    </div>`
+  ).join('');
+
+  el.innerHTML = `
+    <div class="alert alert-success">
+      ✅ Comandos generados por equipo — <span class="vendor-badge ${vcl}">${vendor.toUpperCase()}</span>
+      — ${devices.length} equipos | ${state.vlans.length} VLANs | Routing: ${state.routing.toUpperCase()}
     </div>
-    <div class="result-card">
-      <div class="rc-label">Enlace Recomendado</div>
-      <div class="rc-value">${state.enlace}</div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border);" id="cli-tabs">
+      ${tabs}
     </div>
-  `;
+    <div id="cli-panels">${panels}</div>`;
+}
+
+function switchCliTab(n) {
+  document.querySelectorAll('.cli-tab').forEach((t,i) => {
+    t.classList.toggle('cli-tab-active', i===n);
+  });
+  document.querySelectorAll('.clipanel').forEach((p,i) => {
+    p.style.display = i===n ? 'block' : 'none';
+  });
+}
+
+function copiarTabCLI(n) {
+  const el = document.getElementById('cli-output-'+n);
+  if (!el) return;
+  navigator.clipboard.writeText(el.textContent).then(() => alert('✅ Comandos copiados'));
+}
+
+function descargarTabCLI(n) {
+  const d = state._devicesCmds?.[n];
+  if (!d) return;
+  descargarTexto(d.cmds, 'config_' + d.hostname + '.txt');
+}
+
+// ── Descarga segura (data URI — sin Blob ni createObjectURL) ──
+function descargarTexto(contenido, nombreArchivo) {
+  try {
+    // Método 1: data URI (funciona en entornos con CSP restrictiva)
+    const uri = 'data:text/plain;charset=utf-8,' + encodeURIComponent(contenido);
+    const a = document.createElement('a');
+    a.href = uri;
+    a.download = nombreArchivo;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  } catch(e) {
+    // Fallback: abrir en nueva pestaña para copiar manualmente
+    const w = window.open('', '_blank');
+    if (w) {
+      w.document.open();
+      w.document.write('<pre style="font-family:monospace;font-size:13px;padding:20px;white-space:pre-wrap;">'
+        + contenido.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;') + '</pre>');
+      w.document.close();
+      w.document.title = nombreArchivo;
+    } else {
+      alert('⚠ No se pudo descargar. Copia el contenido manualmente con el botón 📋 Copiar.');
+    }
+  }
+}
+
+// Legacy — kept for SSH console compatibility
+function getComandosBase(vendor) {
+  const devices = getComandosPorEquipo(vendor);
+  return devices.map(d => d.cmds).join('\n\n' + '='.repeat(60) + '\n\n');
+}
+
+function copiarComandos() {
+  // Copy currently visible tab
+  const panels = document.querySelectorAll('.clipanel');
+  for (let i=0; i<panels.length; i++) {
+    if (panels[i].style.display !== 'none') { copiarTabCLI(i); return; }
+  }
+}
+
+// ====================== GENERAR COMANDOS CON IA ======================
+async function generarComandosIA() {
+  const key = getApiKey();
+  if (!key) { alert('⚠ Primero configura tu API Key en el panel 01.'); goTo(0); return; }
+  if (!state.vlans.length) { alert('⚠ Genera el diseño primero.'); return; }
+
+  const el = document.getElementById('comandos-content');
+  const btn = document.getElementById('btn-ai-cli');
+  btn.disabled = true;
+
+  const vcls={cisco:'vendor-cisco',huawei:'vendor-huawei',fortinet:'vendor-fortinet',mikrotik:'vendor-mikrotik'};
+  const vcl = vcls[state.vendor]||'vendor-cisco';
+  const vlanDesc = state.vlans.map(v => `VLAN ${v.id} (${v.nombre}): ${v.red}/24 — GW ${v.gw}`).join('\n');
+  const hwDesc   = state.hardware.map(h => `- ${h.rol}: ${h.modelo} x${h.cantidad}`).join('\n');
+
+  // Build device list to generate configs for
+  const deviceRoles = state.hardware.map(h => h.rol).join(', ');
+
+  el.innerHTML = `<div class="spinner-wrap"><div class="spinner"></div>
+    <span class="spinner-text">Generando configuración IA por equipo para ${state.vendor.toUpperCase()} — ${state.hardware.length} dispositivos...</span>
+  </div>`;
+
+  try {
+    // Generate per device sequentially (one prompt, structured output)
+    const prompt = `Eres un Senior Network Architect especializado en ${state.vendor.toUpperCase()}.
+
+PROYECTO: ${state.nombre} | ORG: ${state.org}
+USUARIOS: ${state.wired+state.wifi} (${state.wired} cable + ${state.wifi} WiFi) | VMs: ${state.vms}
+CRITICIDAD: ${state.criticidad} | ROUTING: ${state.routing.toUpperCase()} | WAN: ${state.wan}
+RED BASE: ${state.red}/${state.cidr}
+SERVICIOS: ${Object.keys(state.servicios).filter(k=>state.servicios[k]).join(', ')||'web,voip,backup'}
+ÁREA: ${state.area}m²
+
+HARDWARE DEL DISEÑO:
+${hwDesc}
+
+VLANs:
+${vlanDesc}
+
+TAREA: Genera configuración CLI COMPLETA Y EJECUTABLE para CADA EQUIPO POR SEPARADO.
+Para cada equipo incluye una sección claramente delimitada con:
+===EQUIPO: [nombre-hostname] | ROL: [rol] | MODELO: [modelo]===
+...comandos...
+===FIN===
+
+REQUERIMIENTOS POR EQUIPO:
+- FIREWALL/ROUTER: WAN, sub-interfaces inter-VLAN, NAT, ACLs Zero Trust, routing ${state.routing.toUpperCase()}, QoS VoIP DSCP EF
+- SWITCH CORE L3: todas las VLANs, SVIs con helper-address, trunks uplink/downlink, spanning-tree root, routing ${state.routing.toUpperCase()}, DHCP snooping
+- SWITCH ACCESO (uno por cada uno, con hostname SW-ACC-01, SW-ACC-02...): acceso de usuarios, voice vlan, port-security, bpduguard, portfast, management VLAN, IP de mgmt distinta
+- CONTROLADORA WIFI: SSIDs corporativo + invitados, VLANs de servicio, seguridad WPA2
+
+FORMATO: Solo comandos ${state.vendor==='cisco'?'IOS':'CLI'} ejecutables. Usa ${state.vendor==='cisco'?'!':'#'} para comentar secciones. Sin explicaciones largas. Terminar cada equipo con guardar configuración.`;
+
+    const resp = await llamarClaude(prompt, 4000);
+
+    // Parse ===EQUIPO: ... === sections
+    const sections = [];
+    const regex = /===EQUIPO:\s*([^|]+)\|?\s*ROL:\s*([^|]+)\|?\s*MODELO:\s*([^=]+)===([\s\S]*?)===FIN===/gi;
+    let m;
+    while ((m = regex.exec(resp)) !== null) {
+      sections.push({ hostname: m[1].trim(), rol: m[2].trim(), modelo: m[3].trim(), cmds: m[4].trim() });
+    }
+
+    // Fallback: if parsing fails, show raw in single tab
+    if (!sections.length) {
+      el.innerHTML = `
+        <div class="alert alert-success">🤖 Configuración IA — <span class="vendor-badge ${vcl}">${state.vendor.toUpperCase()}</span></div>
+        <div class="code-block">
+          <div class="code-header">
+            <span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text2);">IA — ${state.vendor.toUpperCase()} — ${state.nombre}</span>
+            <button class="copy-btn" onclick="copiarComandos()">📋 Copiar todo</button>
+          </div>
+          <div class="code-body" id="cli-output-0">${resp.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>
+        </div>`;
+      state._devicesCmds = [{hostname: state.nombre, rol:'Todos los equipos', modelo: state.vendor.toUpperCase(), cmds: resp}];
+      return;
+    }
+
+    state._devicesCmds = sections;
+    const tabs = sections.map((d,i) =>
+      `<button class="cli-tab ${i===0?'cli-tab-active':''}" onclick="switchCliTab(${i})" id="clitab-${i}">
+        <span style="font-size:11px;opacity:0.7;">${i+1}</span> ${d.rol.substring(0,20)}
+      </button>`).join('');
+    const panels = sections.map((d,i) =>
+      `<div id="clipanel-${i}" class="clipanel" style="display:${i===0?'block':'none'}">
+        <div class="code-block">
+          <div class="code-header">
+            <div>
+              <span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text2);">${d.hostname}</span>
+              <span class="vendor-badge ${vcl}" style="margin-left:8px;">${d.modelo}</span>
+            </div>
+            <div style="display:flex;gap:8px;">
+              <button class="copy-btn" onclick="copiarTabCLI(${i})">📋 Copiar</button>
+              <button class="copy-btn" onclick="descargarTabCLI(${i})">⬇ .txt</button>
+            </div>
+          </div>
+          <div class="code-body cli-code" id="cli-output-${i}">${d.cmds.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>
+        </div>
+      </div>`).join('');
+
+    el.innerHTML = `
+      <div class="alert alert-success">
+        🤖 Configuración IA por equipo — <span class="vendor-badge ${vcl}">${state.vendor.toUpperCase()}</span>
+        — ${sections.length} equipos generados
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border);" id="cli-tabs">
+        ${tabs}
+      </div>
+      <div id="cli-panels">${panels}</div>`;
+
+  } catch(e) {
+    el.innerHTML=`<div class="alert alert-warn">❌ Error: ${e.message}</div>`;
+    renderComandos(state.vendor);
+  } finally {
+    btn.disabled = false;
+  }
+}
+
+// ====================== RENDER REPORTE ======================
+
+// ====================== RENDER REPORTE ======================
+function renderReporte() {
+  const el = document.getElementById('report-content');
+  if (!el) return;
+  if (!state.calculado && !state.vlans.length) {
+    el.innerHTML='<div class="alert alert-info">⚠ Genera el diseño primero desde Parámetros.</div>'; return;
+  }
+  const fecha = new Date().toLocaleDateString('es-CO',{year:'numeric',month:'long',day:'numeric'});
+  el.innerHTML=`
+    <div class="result-grid">
+      <div class="result-card"><div class="rc-label">Proyecto</div><div class="rc-value" style="font-size:16px;">${state.nombre}</div></div>
+      <div class="result-card"><div class="rc-label">Organización</div><div class="rc-value" style="font-size:16px;">${state.org}</div></div>
+      <div class="result-card"><div class="rc-label">Usuarios Totales</div><div class="rc-value">${state.wired+state.wifi}</div></div>
+      <div class="result-card"><div class="rc-label">VLANs Creadas</div><div class="rc-value">${state.vlans.length}</div></div>
+      <div class="result-card"><div class="rc-label">BW Recomendado</div><div class="rc-value">${state.enlace}</div></div>
+      <div class="result-card"><div class="rc-label">Fabricante</div><div class="rc-value" style="font-size:16px;text-transform:uppercase;">${state.vendor}</div></div>
+    </div>
+    <div class="section-title">Servicios Activos</div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px;">
+      ${SERVICIOS_DEF.filter(s=>state.servicios[s.id]).map(s=>`<span class="tag tag-green">${s.nombre}</span>`).join('')||'<span class="tag tag-warn">Ninguno seleccionado</span>'}
+    </div>
+    <div class="section-title">Resumen de VLANs</div>
+    <table class="data-table">
+      <thead><tr><th>VLAN</th><th>Nombre</th><th>Red</th><th>Hosts</th></tr></thead>
+      <tbody>${state.vlans.map(v=>`<tr>
+        <td><span class="tag ${v.color}">${v.id}</span></td>
+        <td>${v.nombre}</td>
+        <td><code style="font-family:'JetBrains Mono',monospace;color:var(--accent);">${v.red}/${v.cidr}</code></td>
+        <td>${v.hosts}</td></tr>`).join('')}
+      </tbody>
+    </table>
+    <div class="alert alert-success">✅ Diseño generado el ${fecha} — Listo para documentar.</div>`;
+}
+
+// ====================== RESUMEN EJECUTIVO IA ======================
+async function generarResumenIA() {
+  const key = getApiKey();
+  if (!key) { alert('⚠ Configura tu API Key de Anthropic en el panel 01.'); goTo(0); return; }
+  if (!state.vlans.length) { alert('⚠ Genera el diseño primero.'); return; }
+
+  const btn = document.getElementById('btn-ai-summary');
+  const cont = document.getElementById('ai-summary-content');
+  btn.disabled = true;
+  cont.innerHTML='<div class="spinner-wrap"><div class="spinner"></div><span class="spinner-text">Generando resumen ejecutivo...</span></div>';
+
+  try {
+    const prompt = `Actúa como Consultor Sénior de Infraestructura TI con 20+ años de experiencia.
+
+PROYECTO: ${state.nombre}
+ORGANIZACIÓN: ${state.org}
+ESCALA: ${state.wired+state.wifi} usuarios (${state.wired} cableados + ${state.wifi} Wi-Fi)
+SERVIDORES/VMs: ${state.vms}
+ÁREA: ${state.area} m²
+CRITICIDAD: ${state.criticidad}
+FABRICANTE: ${state.vendor}
+ROUTING: ${state.routing}
+WAN: ${state.wan}
+BW RECOMENDADO: ${state.enlace}
+SERVICIOS: ${Object.keys(state.servicios).filter(k=>state.servicios[k]).join(', ')}
+SEGMENTACIÓN: ${state.vlans.length} VLANs
+HARDWARE: ${state.hardware.length} tipos de equipos
+
+Redacta un resumen ejecutivo técnico en 5 secciones:
+1. JUSTIFICACIÓN TÉCNICA DEL DISEÑO
+2. MODELO ZERO TRUST Y ESTRATEGIA DE SEGURIDAD
+3. DECISIÓN DE HARDWARE Y FABRICANTE (${state.vendor.toUpperCase()})
+4. IMPACTO EN EL NEGOCIO Y ROI ESTIMADO
+5. HOJA DE RUTA — PRÓXIMAS FASES`;
+
+    const resp = await llamarClaude(prompt, 2000);
+    cont.innerHTML=`<div style="margin-top:20px;"><div class="section-title">🤖 Resumen Ejecutivo — Generado por IA</div><div class="ai-summary">${resp}</div></div>`;
+  } catch(e) {
+    cont.innerHTML=`<div class="alert alert-warn">❌ Error: ${e.message}</div>`;
+  } finally {
+    btn.disabled = false;
+  }
 }
 
 // ====================== CALCULAR TODO ======================
 function calcular() {
   if (!validarInputs()) return;
 
-  // Capturar valores
-  state.nombre     = document.getElementById('p_nombre').value || 'Red Corporativa';
-  state.org        = document.getElementById('p_org').value    || 'Organización';
+  state.nombre     = document.getElementById('p_nombre').value   || 'Red Corporativa';
+  state.org        = document.getElementById('p_org').value      || 'Organización';
   state.red        = document.getElementById('p_red').value;
   state.cidr       = parseInt(document.getElementById('p_cidr').value);
-  state.wired      = parseInt(document.getElementById('p_wired').value) || 50;
-  state.wifi       = parseInt(document.getElementById('p_wifi').value)  || 80;
-  state.vms        = parseInt(document.getElementById('p_vms').value)   || 10;
-  state.area       = parseInt(document.getElementById('p_area').value)  || 1500;
+  state.wired      = parseInt(document.getElementById('p_wired').value)  || 50;
+  state.wifi       = parseInt(document.getElementById('p_wifi').value)   || 80;
+  state.vms        = parseInt(document.getElementById('p_vms').value)    || 10;
+  state.area       = parseInt(document.getElementById('p_area').value)   || 1500;
   state.criticidad = document.getElementById('p_criticidad').value;
   state.vendor     = document.getElementById('p_vendor').value;
+  state.routing    = document.getElementById('p_routing').value;
+  state.wan        = document.getElementById('p_wan').value;
 
-  // Activar servicios por defecto si ninguno está seleccionado
   const algunoActivo = Object.values(state.servicios).some(v => v);
-  if (!algunoActivo) {
-    state.servicios['voip'] = state.servicios['video'] = state.servicios['web'] = true;
-  }
+  if (!algunoActivo) state.servicios['voip']=state.servicios['video']=state.servicios['web']=true;
 
-  // Generar datos
   generarVLANs();
   generarIPPlan();
   generarHardware();
-
-  // Renderizar
+  calcBW();
   renderServicios();
   renderIPPlan();
   renderVLAN();
@@ -690,68 +2403,434 @@ function calcular() {
   renderReporte();
 
   state.calculado = true;
-
-  // Marcar todos como completados
-  for(let i = 0; i < 7; i++) {
-    document.getElementById('nav' + i).classList.add('done');
+  for (let i=0; i<7; i++) {
+    document.getElementById('nav'+i).classList.add('done');
+    var mn2 = document.getElementById('mnav'+i); if (mn2) mn2.classList.add('done');
   }
-
-  // Guardar automáticamente
   localStorage.setItem('infraDesigner_lastProject', JSON.stringify(state));
-
-  alert("✅ Diseño generado correctamente y guardado automáticamente.");
+  alert("✅ Diseño generado y guardado automáticamente.");
   goTo(1);
 }
 
 // ====================== PERSISTENCIA ======================
 function cargarUltimoProyecto() {
   const saved = localStorage.getItem('infraDesigner_lastProject');
-  if (!saved) {
-    alert("No hay proyecto guardado anteriormente.");
-    return;
-  }
-
+  if (!saved) { alert("No hay proyecto guardado."); return; }
   Object.assign(state, JSON.parse(saved));
-  renderServicios();
-  renderIPPlan();
-  renderVLAN();
-  renderInfra();
-  renderComandos(state.vendor);
-  renderReporte();
+  renderServicios(); renderIPPlan(); renderVLAN(); renderInfra();
+  renderComandos(state.vendor); renderReporte();
   goTo(1);
-  alert("✅ Proyecto anterior cargado correctamente.");
+  alert("✅ Proyecto anterior cargado.");
 }
 
-// ====================== NUEVO DISEÑO ======================
 function nuevoDiseno() {
-  if (confirm("¿Estás seguro de iniciar un nuevo diseño? Se perderá el actual.")) {
+  if (confirm("¿Iniciar nuevo diseño? Se perderá el actual.")) {
     localStorage.removeItem('infraDesigner_lastProject');
     location.reload();
   }
 }
 
-// ====================== FUNCIONES AUXILIARES (mantengo las originales) ======================
-// ... (generarVLANs, generarIPPlan, generarHardware, renderServicios, renderIPPlan, etc.)
+// ====================== EXPORTAR REPORTE ======================
+function exportarReporte() {
+  const txt = `REPORTE DE INFRAESTRUCTURA DE RED
+==================================
+Proyecto:     ${state.nombre}
+Organización: ${state.org}
+Fecha:        ${new Date().toLocaleDateString('es-CO')}
+Fabricante:   ${state.vendor.toUpperCase()}
+Routing:      ${state.routing.toUpperCase()}
+WAN:          ${state.wan}
 
-// Nota: Para no hacer este mensaje demasiado largo, las funciones restantes (generarVLANs, renderInfra con topología dinámica, comandos, etc.) 
-// se mantienen exactamente como en tu versión original, solo con las mejoras mencionadas arriba integradas.
+USUARIOS
+--------
+Cableados: ${state.wired}
+Wi-Fi:     ${state.wifi}
+Total:     ${state.wired+state.wifi}
+Servidores/VMs: ${state.vms}
+
+RED BASE
+--------
+Dirección: ${state.red}/${state.cidr}
+BW Requerido: ${state.bwTotal} Mbps
+Enlace Recomendado: ${state.enlace}
+
+VLANs
+-----
+${state.vlans.map(v=>`VLAN ${String(v.id).padStart(3,' ')} | ${v.nombre.padEnd(12,' ')} | ${v.red}/${v.cidr} | GW: ${v.gw}`).join('\n')}
+
+HARDWARE
+--------
+${state.hardware.map(h=>`${h.rol}: ${h.modelo} (x${h.cantidad})`).join('\n')}
+`.trim();
+
+  descargarTexto(txt, 'Reporte_' + state.nombre.replace(/\s+/g,'_') + '.txt');
+}
 
 // ====================== INICIALIZACIÓN ======================
 function init() {
+  initApiKeyUI();
   renderServicios();
-  // Intentar cargar proyecto guardado automáticamente al abrir
   const saved = localStorage.getItem('infraDesigner_lastProject');
   if (saved) {
     setTimeout(() => {
       Object.assign(state, JSON.parse(saved));
-      renderServicios();
-      renderIPPlan();
-      renderVLAN();
-      renderInfra();
-      renderComandos(state.vendor);
-      renderReporte();
-    }, 500);
+      renderServicios(); renderIPPlan(); renderVLAN(); renderInfra();
+      renderComandos(state.vendor); renderReporte();
+    }, 400);
   }
+}
+
+
+// ====================== CONSOLA SSH/TELNET ======================
+const conState = {
+  connected: false,
+  hostname: '',
+  ip: '',
+  port: 22,
+  proto: 'ssh',
+  vendor: 'cisco',
+  connectedAt: null,
+  cmdCount: 0,
+  devices: [],       // multi-device list
+  activeDeviceIdx: -1,
+  uptimeTimer: null
+};
+
+function actualizarPuerto() {
+  const proto = document.getElementById('con_proto').value;
+  document.getElementById('con_port').value = proto === 'ssh' ? 22 : proto === 'telnet' ? 23 : 0;
+}
+
+function termLog(text, color) {
+  const out = document.getElementById('terminal-output');
+  const span = document.createElement('span');
+  span.style.color = color || '#a8d8f0';
+  span.textContent = text + '\n';
+  out.appendChild(span);
+  out.scrollTop = out.scrollHeight;
+}
+
+function termPrompt() {
+  const v = conState.vendor;
+  const h = conState.hostname || 'device';
+  const map = { cisco:`${h}#`, huawei:`[${h}]`, fortinet:`${h} #`, mikrotik:`[${h}] >` };
+  return map[v] || `${h}#`;
+}
+
+function updatePromptDisplay() {
+  document.getElementById('term-prompt').textContent = conState.connected ? termPrompt() : '➜ ~';
+  document.getElementById('term-label').textContent = conState.connected
+    ? `${conState.hostname} — ${conState.ip}:${conState.port} (${conState.proto.toUpperCase()})`
+    : 'Sin conexión activa';
+}
+
+function conectarDispositivo() {
+  const hostname = document.getElementById('con_hostname').value.trim() || 'Equipo';
+  const ip       = document.getElementById('con_ip').value.trim();
+  const port     = parseInt(document.getElementById('con_port').value) || 22;
+  const proto    = document.getElementById('con_proto').value;
+  const user     = document.getElementById('con_user').value.trim() || 'admin';
+  const vendor   = document.getElementById('con_vendor').value;
+
+  if (!ip) { alert('❌ Ingresa la dirección IP del equipo.'); return; }
+
+  // Simulate connection
+  conState.connected   = true;
+  conState.hostname    = hostname;
+  conState.ip          = ip;
+  conState.port        = port;
+  conState.proto       = proto;
+  conState.vendor      = vendor;
+  conState.connectedAt = new Date();
+  conState.cmdCount    = 0;
+
+  // Add to device list
+  const devIdx = conState.devices.findIndex(d => d.ip === ip && d.port === port);
+  const devData = { hostname, ip, port, proto, user, vendor, connectedAt: new Date(), cmdCount: 0 };
+  if (devIdx === -1) { conState.devices.push(devData); conState.activeDeviceIdx = conState.devices.length - 1; }
+  else { conState.devices[devIdx] = devData; conState.activeDeviceIdx = devIdx; }
+
+  renderDeviceList();
+  updateStatusCard();
+  updatePromptDisplay();
+
+  // Show status
+  document.getElementById('con-status-wrap').style.display = 'block';
+  document.getElementById('btn-disconnect').style.display = '';
+
+  // Timer
+  if (conState.uptimeTimer) clearInterval(conState.uptimeTimer);
+  conState.uptimeTimer = setInterval(updateUptime, 1000);
+
+  // Terminal output
+  termLog(`\n═══ Iniciando conexión ${proto.toUpperCase()} ═══`, '#4a5568');
+  termLog(`Conectando a ${hostname} (${ip}:${port}) como "${user}"...`, '#7a8ba0');
+  setTimeout(() => {
+    termLog(`✓ Conexión establecida — ${proto.toUpperCase()} — ${hostname}`, '#00ff9d');
+    const startCmds = {
+      cisco:    [`\n${hostname}>`, `${hostname}> enable`, `Password: `, `${hostname}# configure terminal`, `${hostname}(config)#`],
+      huawei:   [`\n<${hostname}>`, `<${hostname}> system-view`, `[${hostname}]`],
+      fortinet: [`\n${hostname} login: ${user}`, `Password:`, `${hostname} # `],
+      mikrotik: [`\n  MMM    MMM       KKK`, `  MMMM  MMMM       KKK`, `\n[${hostname}] > `]
+    };
+    const seq = startCmds[vendor] || startCmds.cisco;
+    seq.forEach((line, i) => setTimeout(() => termLog(line, i % 2 === 0 ? '#60a5fa' : '#a8d8f0'), i * 180));
+    setTimeout(() => termLog(`\nListo para recibir comandos. ✓`, '#00ff9d'), seq.length * 180 + 100);
+  }, 800);
+}
+
+function desconectarDispositivo() {
+  if (!conState.connected) return;
+  termLog(`\n[${new Date().toLocaleTimeString()}] Cerrando sesión ${conState.proto.toUpperCase()} con ${conState.hostname}...`, '#ff6b35');
+  termLog(`Sesión terminada. ${conState.cmdCount} comandos enviados.`, '#7a8ba0');
+  termLog('───────────────────────────────────────\n', '#1e2d45');
+
+  conState.connected = false;
+  if (conState.uptimeTimer) clearInterval(conState.uptimeTimer);
+
+  const dev = conState.devices[conState.activeDeviceIdx];
+  if (dev) dev.connected = false;
+
+  renderDeviceList();
+  updateStatusCard();
+  updatePromptDisplay();
+  document.getElementById('btn-disconnect').style.display = 'none';
+  document.getElementById('con-led').style.background = 'var(--danger)';
+}
+
+function updateStatusCard() {
+  const led = document.getElementById('con-led');
+  const name = document.getElementById('con-device-name');
+  const info = document.getElementById('con-device-info');
+  if (conState.connected) {
+    led.style.background = 'var(--success)';
+    led.style.boxShadow = '0 0 8px var(--success)';
+    name.textContent = conState.hostname;
+    info.textContent = `${conState.ip}:${conState.port} | ${conState.proto.toUpperCase()} | ${conState.vendor.toUpperCase()}`;
+  } else {
+    led.style.background = 'var(--danger)';
+    led.style.boxShadow = 'none';
+    name.textContent = conState.hostname + ' (desconectado)';
+    info.textContent = conState.ip;
+  }
+  document.getElementById('con-cmd-count').textContent = conState.cmdCount;
+}
+
+function updateUptime() {
+  if (!conState.connectedAt) return;
+  const s = Math.floor((new Date() - conState.connectedAt) / 1000);
+  const h = Math.floor(s/3600), m = Math.floor((s%3600)/60), sec = s%60;
+  document.getElementById('con-uptime').textContent =
+    h > 0 ? `${h}h ${m}m` : m > 0 ? `${m}m ${sec}s` : `${sec}s`;
+}
+
+function renderDeviceList() {
+  const el = document.getElementById('con-devices-list');
+  if (!conState.devices.length) { el.innerHTML=''; return; }
+  el.innerHTML = `
+    <div class="section-title">Equipos en sesión</div>
+    <div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:4px;">
+      ${conState.devices.map((d,i) => `
+        <div onclick="switchDevice(${i})" style="
+          background:${i===conState.activeDeviceIdx?'rgba(0,102,255,0.15)':'var(--bg2)'};
+          border:1px solid ${i===conState.activeDeviceIdx?'rgba(0,102,255,0.5)':'var(--border)'};
+          border-radius:8px;padding:10px 14px;cursor:pointer;transition:all 0.15s;min-width:180px;
+        ">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+            <div style="width:8px;height:8px;border-radius:50%;background:${d.connected===false?'var(--danger)':'var(--success)'};flex-shrink:0;"></div>
+            <span style="font-weight:700;font-size:13px;">${d.hostname}</span>
+          </div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text2);">${d.ip}:${d.port} | ${d.proto.toUpperCase()}</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text3);margin-top:2px;">${d.vendor.toUpperCase()} | ${d.cmdCount} cmds</div>
+        </div>`).join('')}
+    </div>`;
+}
+
+function switchDevice(idx) {
+  const d = conState.devices[idx];
+  if (!d) return;
+  conState.activeDeviceIdx = idx;
+  conState.connected   = d.connected !== false;
+  conState.hostname    = d.hostname;
+  conState.ip          = d.ip;
+  conState.port        = d.port;
+  conState.proto       = d.proto;
+  conState.vendor      = d.vendor;
+  conState.cmdCount    = d.cmdCount;
+  conState.connectedAt = d.connectedAt;
+  renderDeviceList();
+  updateStatusCard();
+  updatePromptDisplay();
+  termLog(`\n[Cambio de sesión → ${d.hostname} (${d.ip})]`, '#0066ff');
+}
+
+function termKeydown(e) {
+  if (e.key === 'Enter') enviarComandoManual();
+}
+
+function enviarComandoManual() {
+  const inp = document.getElementById('term-input');
+  const cmd = inp.value.trim();
+  if (!cmd) return;
+  inp.value = '';
+  if (!conState.connected) {
+    termLog('⚠ No hay conexión activa. Conecta un equipo primero.', '#ff6b35'); return;
+  }
+  ejecutarComando(cmd);
+}
+
+function ejecutarComando(cmd) {
+  const ts = new Date().toLocaleTimeString();
+  termLog(`\n[${ts}] ${termPrompt()} ${cmd}`, '#00d4ff');
+
+  conState.cmdCount++;
+  const dev = conState.devices[conState.activeDeviceIdx];
+  if (dev) dev.cmdCount++;
+  document.getElementById('con-cmd-count').textContent = conState.cmdCount;
+
+  // Simulate response
+  setTimeout(() => {
+    const resp = simularRespuesta(cmd, conState.vendor);
+    termLog(resp, '#a8d8f0');
+  }, 120 + Math.random() * 200);
+}
+
+function simularRespuesta(cmd, vendor) {
+  const c = cmd.toLowerCase().trim();
+  // Cisco-style responses
+  if (c === 'enable')             return 'Password: \n' + conState.hostname + '#';
+  if (c === 'configure terminal') return 'Enter configuration commands, one per line. End with CNTL/Z.\n' + conState.hostname + '(config)#';
+  if (c === 'end')                return conState.hostname + '#';
+  if (c === 'write memory' || c === 'copy run start') return 'Building configuration...\n[OK]';
+  if (c === 'save')               return 'The current configuration will be written to the device.\nAre you sure to continue?[Y/N]y\nNow saving current configuration to the device.';
+  if (c.startsWith('show version'))  return `${vendor.toUpperCase()} Software, Version 17.06.02\nUptime: 0 days, 0 hours, 0 minutes\nSerial Number: FTX2347G01P`;
+  if (c.startsWith('show ip int'))   return `Interface         IP-Address    OK? Method Status   Protocol\nVlan10            ${state.vlans[0]?.gw||'N/A'}  YES NVRAM  up       up`;
+  if (c.startsWith('show vlan'))     return state.vlans.map(v=>`${String(v.id).padStart(4)} ${v.nombre.padEnd(20)} active`).join('\n');
+  if (c.startsWith('show run'))      return '! Running configuration (simulada)\nhostname ' + conState.hostname + '\n...';
+  if (c.startsWith('ping'))          return '!!!!!\nSuccess rate is 100 percent (5/5), round-trip min/avg/max = 1/2/4 ms';
+  if (c.startsWith('no shutdown'))   return '%LINK-5-CHANGED: Interface is now up';
+  if (c.startsWith('hostname'))      return '';
+  if (c.startsWith('vlan'))          return '';
+  if (c === 'system-view')           return `[${conState.hostname}]`;
+  if (c === 'return')                return `<${conState.hostname}>`;
+  // Generic ok
+  return `OK — comando registrado.`;
+}
+
+function enviarComandosMasivos() {
+  if (!conState.connected) {
+    alert('⚠ Conecta un equipo primero.'); return;
+  }
+  const raw = document.getElementById('bulk-commands').value;
+  const lines = raw.split('\n').map(l => l.trim()).filter(l => l && !l.startsWith('!') && !l.startsWith('#'));
+  if (!lines.length) { alert('⚠ No hay comandos en el área de texto.'); return; }
+
+  termLog(`\n═══ Iniciando envío masivo: ${lines.length} comandos ═══`, '#4a5568');
+  lines.forEach((cmd, i) => {
+    setTimeout(() => {
+      ejecutarComando(cmd);
+      if (i === lines.length - 1) {
+        setTimeout(() => termLog(`\n✅ Envío masivo completado. ${lines.length} comandos procesados.`, '#00ff9d'), 400);
+      }
+    }, i * 300);
+  });
+  document.getElementById('bulk-counter').textContent = `${lines.length} comandos en cola...`;
+}
+
+function cargarComandosDelDiseño() {
+  if (!state.vlans.length) { alert('⚠ Primero genera el diseño desde Parámetros.'); return; }
+  const vendor = document.getElementById('con_vendor').value;
+  const cmds = getComandosBase(vendor);
+  document.getElementById('bulk-commands').value = cmds;
+  contarBulk();
+}
+
+function cargarComandosIA() {
+  const el = document.getElementById('cli-output');
+  if (!el || !el.textContent.trim()) {
+    alert('⚠ Primero genera los comandos IA desde el panel "Comandos CLI".'); return;
+  }
+  document.getElementById('bulk-commands').value = el.textContent;
+  contarBulk();
+}
+
+function contarBulk() {
+  const raw = document.getElementById('bulk-commands').value;
+  const n = raw.split('\n').filter(l=>l.trim() && !l.trim().startsWith('!') && !l.trim().startsWith('#')).length;
+  document.getElementById('bulk-counter').textContent = `${n} comandos detectados`;
+}
+
+function limpiarBulk() {
+  document.getElementById('bulk-commands').value = '';
+  document.getElementById('bulk-counter').textContent = '';
+}
+
+function limpiarTerminal() {
+  const out = document.getElementById('terminal-output');
+  out.innerHTML = '';
+  termLog('Terminal limpiada.\n', '#4a5568');
+}
+
+function descargarLog() {
+  const txt = document.getElementById('terminal-output').innerText;
+  descargarTexto(txt, 'session_log_' + (conState.hostname||'device') + '_' + new Date().toISOString().slice(0,10) + '.txt');
+}
+
+function descargarScript() {
+  const raw = document.getElementById('bulk-commands').value.trim();
+  if (!raw) { alert('⚠ No hay comandos en el área de envío masivo.'); return; }
+  const vendor = document.getElementById('con_vendor').value;
+  const ip     = document.getElementById('con_ip').value.trim() || '192.168.1.1';
+  const user   = document.getElementById('con_user').value.trim() || 'admin';
+  const port   = document.getElementById('con_port').value || 22;
+
+  const isCisco = vendor === 'cisco';
+  let header = '';
+
+  if (vendor === 'mikrotik') {
+    header = `#!/bin/bash
+# Script de configuración MikroTik — ${conState.hostname || 'Router'}
+# Generado por InfraDesigner Pro 360°
+# Ejecución: ssh ${user}@${ip} "$(cat this_script.rsc)"
+#
+# Importar en RouterOS:
+#   /import file-name=this_script.rsc
+`;
+  } else {
+    header = `#!/bin/bash
+# Script de configuración ${vendor.toUpperCase()} — ${conState.hostname || 'Equipo'}
+# Generado por InfraDesigner Pro 360°
+# Requiere: sshpass + openssh-client
+#
+# Uso: bash script.sh
+# Instalar sshpass: apt install sshpass  (Linux)
+#
+# --- DATOS DE CONEXIÓN ---
+HOST="${ip}"
+PORT="${port}"
+USER="${user}"
+PASS="TU_CONTRASEÑA_AQUI"
+${isCisco ? 'ENABLE_PASS="TU_ENABLE_AQUI"' : ''}
+
+sshpass -p "$PASS" ssh -p $PORT -o StrictHostKeyChecking=no $USER@$HOST << 'ENDSSH'
+`;
+  }
+
+  const footer = vendor === 'mikrotik' ? '' : '\nENDSSH\necho "✅ Script completado."';
+  descargarTexto(header + '\n' + raw + footer, 'config_' + vendor + '_' + ip.replace(/\./g,'_') + '.sh');
+}
+
+function cargarEquiposDelDiseño() {
+  if (!state.hardware.length) { alert('⚠ Primero genera el diseño desde Parámetros.'); return; }
+  // Pre-fill first device
+  const h = state.hardware[0];
+  const p = state.red.split('.');
+  document.getElementById('con_hostname').value = state.nombre.replace(/\s+/g,'-') + '-' + h.rol.split('/')[0].trim().replace(/\s+/g,'-');
+  document.getElementById('con_ip').value = `${p[0]}.${p[1]}.1.1`;
+  document.getElementById('con_vendor').value = state.vendor;
+  termLog(`\n📋 Datos cargados desde el diseño: ${state.nombre}`, '#0066ff');
+  termLog(`Equipo: ${h.modelo} | IP sugerida: ${p[0]}.${p[1]}.1.1`, '#7a8ba0');
+  termLog('Ajusta la IP real del equipo antes de conectar.\n', '#ff6b35');
 }
 
 window.onload = init;
